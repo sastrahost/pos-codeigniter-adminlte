@@ -48,6 +48,13 @@
             <li class="<?php echo is_menu('pelanggan','create');?>"><a href="<?php echo site_url('pelanggan/create');?>"><i class="fa fa-plus-square-o" aria-hidden="true"></i> <span>Add Pelanggan</span></a></li>
           </ul>
         </li>
+        <li class="treeview <?php echo is_menu('kategori');?>">
+          <a href="#"><i class="fa fa-th-large"></i> <span>Kategori</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+            <li class="<?php echo is_menu('kategori');?>"><a href="<?php echo site_url('kategori');?>"><i class="fa fa-th-large" aria-hidden="true"></i> <span>List Kategori</span></a></li>
+            <li class="<?php echo is_menu('kategori','create');?>"><a href="<?php echo site_url('kategori/create');?>"><i class="fa fa-plus-square-o" aria-hidden="true"></i> <span>Add Kategori</span></a></li>
+          </ul>
+        </li>
 		<li class="treeview <?php echo is_menu('transaksi');?>">
           <a href="#"><i class="fa fa-cart-plus"></i> <span>Transaksi</span> <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu"> 

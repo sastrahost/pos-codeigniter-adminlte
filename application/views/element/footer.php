@@ -45,6 +45,8 @@
 		<script src="<?php echo base_url('public');?>/dist/js/demo.js"></script>		
 		<!-- iCheck -->
 		<script src="<?php echo base_url('public');?>/plugins/iCheck/icheck.min.js"></script>
+		<!-- main JS -->
+		<script src="<?php echo base_url('public');?>/js/main.js"></script>
 		<script>
 		  $(function () {
 			$('input').iCheck({
