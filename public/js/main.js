@@ -1,6 +1,6 @@
 (function($) {
     $(document).ready(function(){
-       $("#kode").on("keyup",function(e){
+       $("#kode_kategori").on("keyup",function(e){
            e.preventDefault();
            var kode = $(this).val();
            var kode = kode.toUpperCase();
@@ -13,10 +13,10 @@
                type: 'POST',
                success: function(data){
                    if(data == 'unavailable'){
-                       $("#kode").addClass("status-error");
+                       $("#kode_kategori").addClass("status-error");
                        $("#status_kode").text('Kode ID Tidak Tersedia, silahkan coba yang lain!');
                    }else{
-                       $("#kode").removeClass("status-error");
+                       $("#kode_kategori").removeClass("status-error");
                        $("#status_kode").text('');
                    }
                },

@@ -39,7 +39,7 @@
                   <div class="form-group">
                     <label class="col-sm-4 control-label" for="kode">Kode Kategori</label>
                     <div class="col-sm-8">
-                      <input type="text" name="category_id" value="<?php echo !empty($kategori) ? $kategori['id'] : '';?>" id="kode" class="form-control" autocomplete="off" required/>
+                      <input type="text" name="category_id" value="<?php echo !empty($kategori) ? $kategori['id'] : '';?>" id="kode_kategori" class="form-control" autocomplete="off" required/>
                       <span class="help-inline label label-danger" id="status_kode"></span>
                     </div>
                   </div>
