@@ -27,6 +27,35 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+              <form action="<?php echo site_url('supplier?search=true');?>" method="GET">
+                <input type="hidden" class="form-control" name="search" value="true"/>
+                <div class="box-body pad">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="id">Code Supplier</label>
+                      <input type="text" class="form-control" name="id" value="<?php echo !empty($_GET['id']) ? $_GET['id'] : '';?>"/>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="customer_name">Nama Supplier</label>
+                      <input type="text" class="form-control" name="supplier_name" value="<?php echo !empty($_GET['customer_name']) ? $_GET['customer_name'] : '';?>"/>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="submit">&nbsp</label>
+                      <input type="submit" value="Submit" class="form-control btn btn-primary">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="submit">&nbsp</label>
+                      <a href="<?php echo site_url('supplier/export_csv');?>" class="form-control btn btn-default"><i class="fa fa-file-excel-o"></i> Export Excel</a>
+                    </div>
+                  </div>
+                </div>
+              </form>
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>

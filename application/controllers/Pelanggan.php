@@ -6,7 +6,6 @@ class Pelanggan extends MY_Controller {
         parent::__construct();
         $this->load->model('pelanggan_model');
         $this->load->library('form_validation');
-        $this->load->library('csv_library');
 
         // Check Session Login
         if(!isset($_SESSION['logged_in'])){

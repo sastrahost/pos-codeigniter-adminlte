@@ -14,7 +14,20 @@ class Supplier extends MY_Controller {
 	}
 	
 	public function index(){
-		$data['suppliers'] = $this->supplier_model->get_all();
+		if(isset($_GET['search'])){
+			$filter = '';
+			if(!empty($_GET['id']) && $_GET['id'] != ''){
+				$filter['id'] = $_GET['id'];
+			}
+
+			if(!empty($_GET['supplier_name']) && $_GET['supplier_name'] != ''){
+				$filter['supplier_name'] = $_GET['supplier_name'];
+			}
+
+			$data['suppliers'] = $this->supplier_model->get_filter($filter);
+		}else{
+			$data['suppliers'] = $this->supplier_model->get_all();
+		}
 		$this->load->view('supplier/index',$data);
 	}
 	
@@ -73,5 +86,9 @@ class Supplier extends MY_Controller {
 			$this->supplier_model->delete($id);
 		}
 		redirect(site_url('supplier'));
+	}
+	public function export_csv(){
+		$data = $this->supplier_model->get_all_array();
+		$this->csv_library->export('supplier.csv',$data);
 	}
 }
