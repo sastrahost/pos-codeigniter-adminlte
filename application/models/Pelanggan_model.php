@@ -10,6 +10,10 @@ class Pelanggan_model extends CI_Model {
 		$query = $this->db->get("customer");
 		return $query->result();
 	}
+	public function get_all_array(){
+		$query = $this->db->get("customer");
+		return $query->result_array();
+	}
 	public function get_last_id(){
 		$this->db->order_by('id', 'DESC');
 
@@ -33,5 +37,13 @@ class Pelanggan_model extends CI_Model {
 	}
 	public function delete($id){
 		$this->db->delete('customer', array('id' => $id));
+	}
+	public function get_filter($filter = ''){
+		if(!empty($filter)){
+			$query = $this->db->get_where("customer",$filter);
+		}else{
+			$query = $this->db->get("customer");
+		}
+		return $query->result();
 	}
 }

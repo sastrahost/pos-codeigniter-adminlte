@@ -6,6 +6,7 @@ class Pelanggan extends MY_Controller {
         parent::__construct();
         $this->load->model('pelanggan_model');
         $this->load->library('form_validation');
+        $this->load->library('csv_library');
 
         // Check Session Login
         if(!isset($_SESSION['logged_in'])){
@@ -14,7 +15,20 @@ class Pelanggan extends MY_Controller {
     }
 
     public function index(){
-        $data['pelanggans'] = $this->pelanggan_model->get_all();
+        if(isset($_GET['search'])){
+            $filter = '';
+            if(!empty($_GET['id']) && $_GET['id'] != ''){
+                $filter['id'] = $_GET['id'];
+            }
+
+            if(!empty($_GET['customer_name']) && $_GET['customer_name'] != ''){
+                $filter['customer_name'] = $_GET['customer_name'];
+            }
+
+            $data['pelanggans'] = $this->pelanggan_model->get_filter($filter);
+        }else{
+            $data['pelanggans'] = $this->pelanggan_model->get_all();
+        }
         $this->load->view('pelanggan/index',$data);
     }
 
@@ -68,10 +82,14 @@ class Pelanggan extends MY_Controller {
         redirect(site_url('pelanggan'));
     }
     public function delete($id){
-        $check_id = $this->supplier_model->get_by_id($id);
+        $check_id = $this->pelanggan_model->get_by_id($id);
         if($check_id){
-            $this->supplier_model->delete($id);
+            $this->pelanggan_model->delete($id);
         }
-        redirect(site_url('supplier'));
+        redirect(site_url('pelanggan'));
+    }
+    public function export_csv(){
+        $data = $this->pelanggan_model->get_all_array();
+        $this->csv_library->export('pelanggan.csv',$data);
     }
 }
