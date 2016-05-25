@@ -46,3 +46,67 @@ function generate_code($prefix,$num,$length = 3){
 	$num_code = str_pad($add_code,$length,"0",STR_PAD_LEFT);
 	return $prefix.$num_code;
 }
+
+function get_paggination($total_row,$search = array()){
+	$ci = &get_instance();
+	$ci->load->library('pagination');
+
+
+	$current_url = reconstruct_url("http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]");
+	if(!empty($search)){
+		$config['base_url'] = $current_url.'?'.http_build_query($search);
+	}else{
+		$config['base_url'] = $current_url;
+	}
+	$config['page_query_string'] = true;
+	$config['query_string_segment'] = 'page';
+	$config['total_rows'] = $total_row;
+	$config['per_page'] = $ci->page_limit;
+
+	$config['full_tag_open'] = '<ul class="pagination">';
+	$config['full_tag_close'] = '</ul>';
+	$config['first_link'] = false;
+	$config['last_link'] = false;
+	$config['first_tag_open'] = '<li>';
+	$config['first_tag_close'] = '</li>';
+	$config['prev_link'] = '&laquo';
+	$config['prev_tag_open'] = '<li class="prev">';
+	$config['prev_tag_close'] = '</li>';
+	$config['next_link'] = '&raquo';
+	$config['next_tag_open'] = '<li>';
+	$config['next_tag_close'] = '</li>';
+	$config['last_tag_open'] = '<li>';
+	$config['last_tag_close'] = '</li>';
+	$config['cur_tag_open'] = '<li class="active"><a href="#">';
+	$config['cur_tag_close'] = '</a></li>';
+	$config['num_tag_open'] = '<li>';
+	$config['num_tag_close'] = '</li>';
+
+	$ci->pagination->initialize($config);
+
+	return $ci->pagination->create_links();
+}
+
+function url_param(){
+	// get limit offset
+	$ci = &get_instance();
+	$page = 0;
+	if(!empty($_GET['page'])){
+		$page = $_GET['page'];
+	}
+	$result = array("limit" => $ci->page_limit , "offset" => $page);
+	return $result;
+}
+function get_search(){
+	$search = $_GET;
+	if(isset($search['page'])){
+		unset($search['page']);
+	}
+	return $search;
+}
+function reconstruct_url($url){
+	$url_parts = parse_url($url);
+	$constructed_url = $url_parts['scheme'] . '://' . $url_parts['host'] . (isset($url_parts['path'])?$url_parts['path']:'');
+
+	return $constructed_url;
+}

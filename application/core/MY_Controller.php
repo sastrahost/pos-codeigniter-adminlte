@@ -13,6 +13,8 @@ class MY_Controller extends CI_Controller {
 			$this->user_photo = get_user('photo_profile');
 			$this->username = get_user('username');
 		}		
+		
+		$this->page_limit = 1;
 	}
 	public function index()
 	{

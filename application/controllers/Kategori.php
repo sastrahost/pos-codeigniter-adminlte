@@ -14,20 +14,28 @@ class Kategori extends MY_Controller {
     }
 
     public function index(){
+        $filter = '';
         if(isset($_GET['search'])){
-            $filter = '';
             if(!empty($_GET['id']) && $_GET['id'] != ''){
                 $filter['id'] = $_GET['id'];
             }
 
-            if(!empty($_GET['category_name']) && $_GET['category_name'] != ''){
-                $filter['category_name'] = $_GET['category_name'];
+            if(!empty($_GET['kategori_name']) && $_GET['kategori_name'] != ''){
+                $filter['category_name'] = $_GET['kategori_name'];
             }
-
-            $data['kategoris'] = $this->kategori_model->get_filter($filter);
+            $total_row = $this->kategori_model->count_total_filter($filter);
+            
+            $result = $this->kategori_model->get_filter($filter,url_param());
+            $data['kategoris'] = $result;
         }else{
-            $data['kategoris'] = $this->kategori_model->get_all();
+            $total_row = $this->kategori_model->count_total();
+            
+            $result = $this->kategori_model->get_all(url_param());
+            $data['kategoris'] = $result;
         }
+        //print_r($total_item); exit;
+        $data['paggination'] = get_paggination($total_row,get_search());
+
         $this->load->view('kategori/index',$data);
     }
 

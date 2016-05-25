@@ -35,7 +35,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="customer_name">Nama Kategori</label>
-                                            <input type="text" class="form-control" name="kategori_name" value="<?php echo !empty($_GET['customer_name']) ? $_GET['customer_name'] : '';?>"/>
+                                            <input type="text" class="form-control" name="kategori_name" value="<?php echo !empty($_GET['kategori_name']) ? $_GET['kategori_name'] : '';?>"/>
                                         </div>
                                     </div>
                                     <div class="col-md-3">
@@ -87,6 +87,9 @@
                             </table>
                         </div>
                         <!-- /.box-body -->
+                        <div class="text-center">
+                            <?php echo $paggination;?>
+                        </div>
                     </div>
                     <!-- /.box -->
                 </div>
