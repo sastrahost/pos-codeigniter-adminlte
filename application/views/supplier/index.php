@@ -39,7 +39,7 @@
                   <div class="col-md-3">
                     <div class="form-group">
                       <label for="customer_name">Nama Supplier</label>
-                      <input type="text" class="form-control" name="supplier_name" value="<?php echo !empty($_GET['customer_name']) ? $_GET['customer_name'] : '';?>"/>
+                      <input type="text" class="form-control" name="supplier_name" value="<?php echo !empty($_GET['supplier_name']) ? $_GET['supplier_name'] : '';?>"/>
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -94,6 +94,9 @@
               </table>
             </div>
             <!-- /.box-body -->
+            <div class="text-center">
+              <?php echo $paggination;?>
+            </div>
           </div>
           <!-- /.box -->
         </div>

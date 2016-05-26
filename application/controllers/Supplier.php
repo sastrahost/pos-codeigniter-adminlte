@@ -15,7 +15,7 @@ class Supplier extends MY_Controller {
 	
 	public function index(){
 		if(isset($_GET['search'])){
-			$filter = '';
+			$filter = array();
 			if(!empty($_GET['id']) && $_GET['id'] != ''){
 				$filter['id'] = $_GET['id'];
 			}
@@ -24,10 +24,14 @@ class Supplier extends MY_Controller {
 				$filter['supplier_name'] = $_GET['supplier_name'];
 			}
 
-			$data['suppliers'] = $this->supplier_model->get_filter($filter);
+			$total_row = $this->supplier_model->count_total_filter($filter);
+			$data['suppliers'] = $this->supplier_model->get_filter($filter,url_param());
 		}else{
-			$data['suppliers'] = $this->supplier_model->get_all();
+			$total_row = $this->supplier_model->count_total();
+			$data['suppliers'] = $this->supplier_model->get_all(url_param());
 		}
+		$data['paggination'] = get_paggination($total_row,get_search());
+
 		$this->load->view('supplier/index',$data);
 	}
 	

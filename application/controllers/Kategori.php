@@ -14,8 +14,8 @@ class Kategori extends MY_Controller {
     }
 
     public function index(){
-        $filter = '';
         if(isset($_GET['search'])){
+            $filter = array();
             if(!empty($_GET['id']) && $_GET['id'] != ''){
                 $filter['id'] = $_GET['id'];
             }
@@ -33,7 +33,6 @@ class Kategori extends MY_Controller {
             $result = $this->kategori_model->get_all(url_param());
             $data['kategoris'] = $result;
         }
-        //print_r($total_item); exit;
         $data['paggination'] = get_paggination($total_row,get_search());
 
         $this->load->view('kategori/index',$data);

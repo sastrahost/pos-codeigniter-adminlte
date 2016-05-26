@@ -6,9 +6,13 @@ class Pelanggan_model extends CI_Model {
         parent::__construct();
 	}
 	
-	public function get_all(){
-		$query = $this->db->get("customer");
+	public function get_all($limit_offset = array()){
+		$query = $this->db->get("customer",$limit_offset['limit'],$limit_offset['offset']);
 		return $query->result();
+	}
+	public function count_total(){
+		$query = $this->db->get("customer");
+		return $query->num_rows();
 	}
 	public function get_all_array(){
 		$query = $this->db->get("customer");
@@ -38,12 +42,21 @@ class Pelanggan_model extends CI_Model {
 	public function delete($id){
 		$this->db->delete('customer', array('id' => $id));
 	}
-	public function get_filter($filter = ''){
+	public function get_filter($filter = '',$limit_offset = array()){
+		if(!empty($filter)){
+			$query = $this->db->get_where("customer",$filter,$limit_offset['limit'],$limit_offset['offset']);
+		}else{
+			$query = $this->db->get("customer",$limit_offset['limit'],$limit_offset['offset']);
+		}
+		return $query->result();
+	}
+
+	public function count_total_filter($filter = array()){
 		if(!empty($filter)){
 			$query = $this->db->get_where("customer",$filter);
 		}else{
 			$query = $this->db->get("customer");
 		}
-		return $query->result();
+		return $query->num_rows();
 	}
 }

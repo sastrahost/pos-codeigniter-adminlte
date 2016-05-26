@@ -23,11 +23,14 @@ class Pelanggan extends MY_Controller {
             if(!empty($_GET['customer_name']) && $_GET['customer_name'] != ''){
                 $filter['customer_name'] = $_GET['customer_name'];
             }
-
-            $data['pelanggans'] = $this->pelanggan_model->get_filter($filter);
+            $total_row = $this->pelanggan_model->count_total_filter($filter);
+            $data['pelanggans'] = $this->pelanggan_model->get_filter($filter,url_param());
         }else{
-            $data['pelanggans'] = $this->pelanggan_model->get_all();
+            $total_row = $this->pelanggan_model->count_total();
+            $data['pelanggans'] = $this->pelanggan_model->get_all(url_param());
         }
+        $data['paggination'] = get_paggination($total_row,get_search());
+
         $this->load->view('pelanggan/index',$data);
     }
 

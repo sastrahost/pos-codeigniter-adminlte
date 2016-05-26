@@ -26,10 +26,14 @@ class Produk extends MY_Controller {
                 $filter['product_name'] = $_GET['product_name'];
             }
 
-            $data['produks'] = $this->produk_model->get_filter($filter);
+            $total_row = $this->produk_model->count_total_filter($filter);
+            $data['produks'] = $this->produk_model->get_filter($filter,url_param());
         }else{
-            $data['produks'] = $this->produk_model->get_all();
+            $total_row = $this->produk_model->count_total();
+            $data['produks'] = $this->produk_model->get_all(url_param());
         }
+        $data['paggination'] = get_paggination($total_row,get_search());
+        
         $this->load->view('produk/index',$data);
     }
 

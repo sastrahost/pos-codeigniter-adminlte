@@ -7,7 +7,11 @@ class Kategori_model extends CI_Model {
 	}
 	
 	public function get_all($limit_offset = array()){
-		$query = $this->db->get("category",$limit_offset['limit'],$limit_offset['offset']);
+		if(!empty($limit_offset)){
+			$query = $this->db->get("category",$limit_offset['limit'],$limit_offset['offset']);
+		}else{
+			$query = $this->db->get("category");
+		}
 		return $query->result();
 	}
 	public function count_total(){

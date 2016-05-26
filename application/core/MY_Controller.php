@@ -14,7 +14,7 @@ class MY_Controller extends CI_Controller {
 			$this->username = get_user('username');
 		}		
 		
-		$this->page_limit = 1;
+		$this->page_limit = 10;
 	}
 	public function index()
 	{

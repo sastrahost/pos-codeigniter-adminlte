@@ -64,7 +64,7 @@
                       <select class="form-control" id="category_id" name="category_id">
                         <?php if(isset($category) && is_array($category)){?>
                           <?php foreach($category as $item){?>
-                            <option value="<?php echo $item->id;?>" <?php if($item->id == $produk['category_id']) echo 'selected="selected"';?>>
+                            <option value="<?php echo $item->id;?>" <?php if(!empty($produk) && $item->id == $produk['category_id']) echo 'selected="selected"';?>>
                               <?php echo $item->category_name;?>
                             </option>
                           <?php }?>

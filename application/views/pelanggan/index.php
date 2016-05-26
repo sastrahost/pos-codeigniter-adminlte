@@ -90,6 +90,9 @@
                             </table>
                         </div>
                         <!-- /.box-body -->
+                        <div class="text-center">
+                            <?php echo $paggination;?>
+                        </div>
                     </div>
                     <!-- /.box -->
                 </div>
