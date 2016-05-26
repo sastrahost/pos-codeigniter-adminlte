@@ -62,4 +62,12 @@ class Produk_model extends CI_Model {
 		}
 		return $query->num_rows();
 	}
+	public function get_by_category($category_id){
+		$response = false;
+		$query = $this->db->get_where('product',array('category_id' => $category_id));
+		if($query && $query->num_rows()){
+			$response = $query->result_array();
+		}
+		return $response;
+	}
 }
