@@ -63,7 +63,7 @@
           </ul>
         </li>
 		<li class="treeview <?php echo is_menu('transaksi');?>">
-          <a href="#"><i class="fa fa-cart-plus"></i> <span>Transaksi</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <a href="#"><i class="fa fa-cart-plus"></i> <span>Transaksi Sales</span> <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu"> 
 			<li class="<?php echo is_menu('transaksi');?>"><a href="<?php echo site_url('transaksi');?>"><i class="fa fa-area-chart" aria-hidden="true"></i> <span>List Transaksi</span></a></li>
 			<li class="<?php echo is_menu('transaksi','create');?>"><a href="<?php echo site_url('transaksi/create');?>"><i class="fa fa-plus-square-o" aria-hidden="true"></i> <span>Add Transaction</span></a></li>

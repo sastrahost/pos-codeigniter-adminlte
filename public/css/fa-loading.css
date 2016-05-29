@@ -1,0 +1,94 @@
+/**
+ * Version: 0.3
+ * Updated: 2016-01-06
+ *
+ * jQuery plugin for modal Font Awesome spin loading icons
+ *
+ * Copyright (c) 2015 Alê Monteiro (contato@alemonteiro.com.br, https://github.com/alemonteiro/jquery-fa-loading)
+ *
+ * Licensed under the MIT (LICENSE.txt)
+ **/
+
+.jq-fa-loading .fa-loading-modal
+{
+    position: absolute;
+    top: 0; left: 0;
+    background: rgba(0, 0, 0, 0.6);
+    width: 100%;
+    height: 100%;
+}
+.jq-fa-loading .fa-loading-content-wrapper
+{
+    position: absolute;
+    top: 10%; left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 0;
+}
+.fa-loading-content {
+    background: rgba(235, 235, 235, 0.9);
+    display: inline-block;
+    min-width: 280px;
+    box-shadow: 2px 2px 2px #999;
+    text-align: left;
+}
+
+.jq-fa-loading .fa-loading-header {
+    display: block;
+    padding: 0.4em;
+    position: relative;
+}
+.jq-fa-loading .fa-loading-body {
+    padding: 1em;
+}
+
+.jq-fa-loading.loading .fa-loading-header { display: none; }
+.jq-fa-loading.loading.has-text .fa-loading-header { display: block; }
+
+.jq-fa-loading .fa-loading-icon { color: #000; }
+.jq-fa-loading.success .fa-loading-icon{ color: #080; }
+.jq-fa-loading.fail .fa-loading-icon{ color: #800; }
+
+.jq-fa-loading .fa-loading-text{
+    color: #333;
+    display: inline-block;
+    margin-left: 1em;
+}
+
+.jq-fa-loading.has-title .fa-loading-header {
+    display: block;
+    padding: 0.4em;
+    font-size: 1.2em;
+    background: rgba(0, 0, 0, 0.7);
+    color: #FFF;
+    text-shadow: 2px 2px 2px #222;
+    position: relative;
+    text-shadow: 2px 2px 2px #222;
+}
+.jq-fa-loading.icon-only .fa-loading-body {
+    text-align: center;
+}
+.jq-fa-loading.icon-only .fa-loading-icon{
+    font-size: 3em;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.jq-fa-loading.fail .fa-loading-modal,
+.jq-fa-loading.success .fa-loading-modal  {
+    display: none;
+}
+.jq-fa-loading span.fa-loading-close {
+    position: absolute;
+    font-size: 1em;
+    top: 0;
+    right: 0;
+    padding: 0.4em;
+    cursor: pointer;
+}
+.jq-fa-loading span.fa-loading-close:after {
+
+}
+.jq-fa-loading span.fa-loading-close:hover {
+    background: rgba(0, 0, 0, 0.5);
+}

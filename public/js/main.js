@@ -1,3 +1,4 @@
+var $el = $("body");
 (function($) {
     $(document).ready(function(){
         $("#kode_produk").on("keyup",function(e){
@@ -54,26 +55,31 @@
             e.preventDefault();
             var kode = $(this).val();
             var kode = kode.toUpperCase();
+            var origin = $(this).attr('data-origin');
             $(this).val(kode);
-            $.ajax({
-                url: $("base").attr("url") + 'transaksi/check_id',
-                data: {
-                    'id' : kode
-                },
-                type: 'POST',
-                success: function(data){
-                    if(data == 'unavailable'){
-                        $("#kode_produk").addClass("status-error");
-                        $("#status_kode").text('Kode ID Tidak Tersedia, silahkan coba yang lain!');
-                    }else{
-                        $("#kode_produk").removeClass("status-error");
-                        $("#status_kode").text('');
+            if(origin !== kode) {
+                $.ajax({
+                    url: $("base").attr("url") + 'transaksi/check_id',
+                    data: {
+                        'id': kode
+                    },
+                    type: 'POST',
+                    success: function (data) {
+                        if (data == 'unavailable') {
+                            $("#kode_transaksi").addClass("status-error");
+                            $("#kode_transaksi").attr("data-attr", "false");
+                            $("#status_kode").text('Kode ID Tidak Tersedia, silahkan coba yang lain!');
+                        } else {
+                            $("#kode_transaksi").removeClass("status-error");
+                            $("#kode_transaksi").attr("data-attr", "true");
+                            $("#status_kode").text('');
+                        }
+                    },
+                    error: function () {
+                        alert('Something Error');
                     }
-                },
-                error: function(){
-                    alert('Something Error');
-                }
-            });
+                });
+            }
         });
         $("#transaksi_category_id").on("change",function(e){
             e.preventDefault();
@@ -122,23 +128,38 @@
     });
     $("#tambah-barang").on("click",function(e){
         e.preventDefault();
-        
-        var category_id = $("#transaksi_category_id").val();
+
         var product_id = $("#transaksi_product_id").val();
         var quantity = $("#jumlah").val();
         var sale_price = $("#sale_price").val();
-        if(product_id.length > 0 && quantity > 0 && sale_price.length > 0){
+        if(product_id !== null && sale_price !== null){
             $.ajax({
                 url: $("base").attr("url") + 'transaksi/add_item',
                 data: {
-                    'category_id' :category_id,
                     'product_id' : product_id,
                     'quantity' : quantity,
                     'sale_price' : sale_price
                 },
                 type: 'POST',
+                beforeSend : function(){
+                    $el.faLoading();
+                },
                 success: function(data){
-                    console.log(data);
+                    var res = $.parseJSON(data);
+                    $(".cart-value").remove();
+                    $.each(res.data, function(key,value) {
+                        var display = '<tr class="cart-value" id="'+ key +'">' +
+                                    '<td>'+ value.category_name +'</td>' +
+                                    '<td>'+ value.name +'</td>' +
+                                    '<td>'+ value.qty +'</td>' +
+                                    '<td>Rp'+ price(value.subtotal) +'</td>' +
+                                    '<td><span class="btn btn-danger btn-sm transaksi-delete-item" data-cart="'+ key +'">x</span></td>' +
+                                    '</tr>';
+                        $("#transaksi-item tr:last").after(display);
+                    });
+                    $("#total-pembelian").text('Rp'+price(res.total_price));
+                    $el.faLoading(false);
+                    console.log(res);
                 },
                 error: function(){
                     alert('Something Error');
@@ -147,6 +168,55 @@
         }else{
             alert("Silahkan isi semua box");
         }
+    });
+    $(document).on("click",".transaksi-delete-item",function(e){
+        var rowid = $(this).attr("data-cart");
+        $el.faLoading();
+        $.get($("base").attr("url") + 'transaksi/delete_item/'+rowid,
+            function(data,status){
+                if(status == 'success'  && data != 'false'){
+                    $("#"+rowid).remove();
+                    console.log(data);
+                    $("#total-pembelian").text('Rp'+data);
+                    $el.faLoading(false);
+                }                
+            }
+        );
+    });
+    $("#submit-transaksi").on('click',function(e){
+        e.preventDefault();
+        var transaction_id = $("#kode_transaksi").val();
+        var supplier_id = $("#supplier_id").val();
+        var status_id = $("#kode_transaksi").attr("data-attr");
+        if(supplier_id !== '' && transaction_id !== '' && status_id != "false") {
+            $.ajax({
+                url: $("#transaction-form").attr("action"),
+                data: {
+                    'transaction_id': transaction_id,
+                    'supplier_id': supplier_id
+                },
+                type: 'POST',
+                beforeSend: function () {
+                    $el.faLoading();
+                },
+                success: function (data) {
+                    var response = $.parseJSON(data);
+                    $el.faLoading(false);
+                    if(response.status == "ok"){
+                        alert("sukses");
+                        window.location.href = $("base").attr("url") + 'transaksi';
+                    }else{
+                        alert("Terjadi error di server, silahkan coba lagi");
+                    }
+                }
+            });
+        }else{
+            alert("Silahkan periksa kode transaksi atau supplier anda!");
+        }
+    });
+    $('#datepicker-transaksi').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true
     });
 })(this.jQuery);
 

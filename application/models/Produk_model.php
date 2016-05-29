@@ -70,4 +70,18 @@ class Produk_model extends CI_Model {
 		}
 		return $response;
 	}
+	public function detail_by_id($id){
+		$response = false;
+		$this->db->where('product.id',$id);
+		$this->db->join('category', 'category.id = product.category_id', 'left');
+		$query = $this->db->get('product');
+		if($query && $query->num_rows()){
+			$response = $query->result_array();
+		}
+		return $response;
+	}
+	public function update_qty($id,$data){
+		$this->db->where('id', $id);
+		$this->db->update('product', $data);
+	}
 }

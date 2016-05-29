@@ -34,16 +34,16 @@
             <!-- /.box-header -->
             <!-- form start -->
             <?php if(!empty($transaksi)){?>
-            <form class="form-horizontal" method="POST" action="<?php echo site_url('transaksi/save').'/'.$transaksi['id'];?>">
+            <form id="transaction-form" class="form-horizontal" method="POST" action="<?php echo site_url('transaksi/update').'/'.$transaksi[0]->id;?>">
             <?php }else{?>
-            <form class="form-horizontal" method="POST" action="<?php echo site_url('transaksi/save');?>">
+            <form id="transaction-form" class="form-horizontal" method="POST" action="<?php echo site_url('transaksi/add_process');?>">
             <?php } ?>
               <div class="box-body">
                 <div class="col-md-6">
                   <div class="form-group">
                     <label class="col-sm-4 control-label" for="kode">Kode Transaksi</label>
                     <div class="col-sm-8">
-                      <input type="text" name="transaction_id" value="<?php echo !empty($transaksi) ? $transaksi['id'] : '';?>" id="kode_transaksi" class="form-control" required/>
+                      <input data-attr="" type="text" name="transaction_id" data-origin="<?php echo !empty($transaksi) ? $transaksi[0]->id : '';?>" value="<?php echo !empty($transaksi) ? $transaksi[0]->id : '';?>" id="kode_transaksi" class="form-control" required/>
                       <span class="help-inline label label-danger" id="status_kode"></span>
                     </div>
                   </div>
@@ -53,7 +53,7 @@
                       <select class="form-control" id="supplier_id" name="supplier_id">
                         <?php if(isset($suppliers) && is_array($suppliers)){?>
                           <?php foreach($suppliers as $item){?>
-                            <option value="<?php echo $item->id;?>" <?php if(!empty($transaksi) && $item->id == $transaksi['supplier_id']) echo 'selected="selected"';?>>
+                            <option value="<?php echo $item->id;?>" <?php if(!empty($transaksi) && $item->id == $transaksi[0]->supplier_id) echo 'selected="selected"';?>>
                               <?php echo $item->supplier_name;?>
                             </option>
                           <?php }?>
@@ -66,8 +66,8 @@
                   <div class="form-group">
                     <label class="col-sm-4 control-label" for="date">Tanggal</label>
                     <div class="col-sm-8">
-                      <input type="text" value="<?php echo !empty($supplier) ? $supplier['date'] : date('Y-m-d H:i:s');?>" id="date" class="form-control" disabled/>
-                      <input type="hidden" name="supplier_date" value="<?php echo !empty($supplier) ? $supplier['date'] : date('Y-m-d H:i:s');?>" id="supplier_date" class="form-control"/>
+                      <input type="text" value="<?php echo date('Y-m-d H:i:s');?>" id="date" class="form-control" disabled/>
+                      <input type="hidden" name="supplier_date" value="<?php echo date('Y-m-d H:i:s');?>" id="supplier_date" class="form-control"/>
                     </div>
                   </div>
                 </div>
@@ -84,7 +84,7 @@
                           <td>Input Barang</td>
                         </tr>
                       </thead>
-                      <tbody>
+                      <tbody id="transaksi-item">
                         <tr>
                           <td>
                             <select class="form-control" id="transaksi_category_id" name="category_id">
@@ -93,7 +93,7 @@
                               </option>
                               <?php if(isset($kategoris) && is_array($kategoris)){?>
                                 <?php foreach($kategoris as $item){?>
-                                  <option value="<?php echo $item->id;?>" <?php if(!empty($transaksi) && $item->id == $transaksi['category_id']) echo 'selected="selected"';?>>
+                                  <option value="<?php echo $item->id;?>">
                                     <?php echo $item->category_name;?>
                                   </option>
                                 <?php }?>
@@ -113,18 +113,23 @@
                             <a href="#" class="btn btn-primary" id="tambah-barang">Input Barang</a>
                           </td>
                         </tr>
-                        <tr id="transaksi-item">
-                          <td>Kipas Angin Maspion</td>
-                          <td>1000000</td>
-                          <td>1000000</td>
-                          <td><span class="btn btn-danger btn-sm transaksi-delete-item">x</span></td>
-                        </tr>
+                        <?php if(!empty($carts) && is_array($carts)){?>
+                            <?php foreach($carts['data'] as $k => $cart){?>
+                              <tr id="<?php echo $k;?>" class="cart-value">
+                                <td><?php echo $cart['category_name'];?></td>
+                                <td><?php echo $cart['name'];?></td>
+                                <td><?php echo $cart['qty'];?></td>
+                                <td>Rp<?php echo number_format($cart['price']);?></td>
+                                <td><span class="btn btn-danger btn-sm transaksi-delete-item" data-cart="<?php echo $k;?>">x</span></td>
+                              </tr>
+                            <?php }?>
+                        <?php }?>
                       </tbody>
                       <tfoot>
-                      <tr>
-                        <td>Total Pembelian</td>
-                        <td>Rp 3.000.000</td>
-                      </tr>
+                        <tr>
+                          <td>Total Pembelian</td>
+                          <td id="total-pembelian"><?php echo !empty($carts) ? 'Rp'.number_format($carts['total_price']) : '';?></td>
+                        </tr>
                       </tfoot>
                     </table>
                   </div>
