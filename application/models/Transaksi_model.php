@@ -79,9 +79,6 @@ class Transaksi_model extends CI_Model {
 	}
 	public function count_total_filter($filter = array()){
 		if(!empty($filter)){
-			if(!empty($filter['date'])){
-				//$filter['date'] = 
-			}
 			$query = $this->db->get_where($this->table,$filter);
 		}else{
 			$query = $this->db->get($this->table);
