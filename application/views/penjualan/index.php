@@ -4,7 +4,7 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Transaksi Pembelian
+        Transaksi Penjualan
         <small>List Transaksi</small>
       </h1>
     </section>
@@ -14,8 +14,8 @@
       <div class="row">
         <div class="col-xs-12">
           <ul class="nav nav-tabs">
-            <li role="presentation"><a href="<?php echo site_url('transaksi/create');?>">Input Transaksi</a></li>
-            <li role="presentation" class="active"><a href="<?php echo site_url('transaksi');?>">List Transaksi</a></li>
+            <li role="presentation"><a href="<?php echo site_url('penjualan/create');?>">Input Transaksi</a></li>
+            <li role="presentation" class="active"><a href="<?php echo site_url('penjualan');?>">List Transaksi</a></li>
           </ul>
           <div class="box">
             <div class="box-header">
@@ -61,7 +61,7 @@
                 <thead>
                 <tr>
                   <th>Transaksi ID</th>
-                  <th>Supplier Name</th>
+                  <th>Customer Name</th>
                   <th>Total Item</th>
                   <th>Total Harga</th>
                   <th>Date</th>
@@ -88,7 +88,7 @@
                 <tfoot>
                 <tr>
                   <th>Code ID</th>
-                  <th>Supplier Name</th>
+                  <th>Customer Name</th>
                   <th>Total Item</th>
                   <th>Total Harga</th>
                   <th>Date</th>

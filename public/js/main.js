@@ -188,13 +188,29 @@ var $el = $("body");
         var transaction_id = $("#kode_transaksi").val();
         var supplier_id = $("#supplier_id").val();
         var status_id = $("#kode_transaksi").attr("data-attr");
-        if(supplier_id !== '' && transaction_id !== '' && status_id != "false") {
+        if(typeof transaction_id !== undefined){
+            var arr = {
+                'transaction_id': transaction_id,
+                'supplier_id': supplier_id
+            };
+        }
+
+        // Penjualan
+        var sales_id = $("#penjualan_id").val();
+        var costumer_id = $("#costumer_id").val();
+        var is_cash = $("#is_cash").val();
+        if(typeof sales_id !== undefined){
+            var arr = {
+                'sales_id': sales_id,
+                'costumer_id': costumer_id,
+                'is_cash' : is_cash
+            };
+        }
+        if((supplier_id !== '' && transaction_id !== '' && status_id != "false") ||
+            (sales_id !== '' && costumer_id !== '' && is_cash !== '')) {
             $.ajax({
                 url: $("#transaction-form").attr("action"),
-                data: {
-                    'transaction_id': transaction_id,
-                    'supplier_id': supplier_id
-                },
+                data: arr,
                 type: 'POST',
                 beforeSend: function () {
                     $el.faLoading();

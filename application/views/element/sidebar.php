@@ -63,10 +63,17 @@
           </ul>
         </li>
 		<li class="treeview <?php echo is_menu('transaksi');?>">
-          <a href="#"><i class="fa fa-cart-plus"></i> <span>Transaksi Sales</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <a href="#"><i class="fa fa-cart-plus"></i> <span>Transaksi Pembelian</span> <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu"> 
 			<li class="<?php echo is_menu('transaksi');?>"><a href="<?php echo site_url('transaksi');?>"><i class="fa fa-area-chart" aria-hidden="true"></i> <span>List Transaksi</span></a></li>
 			<li class="<?php echo is_menu('transaksi','create');?>"><a href="<?php echo site_url('transaksi/create');?>"><i class="fa fa-plus-square-o" aria-hidden="true"></i> <span>Add Transaction</span></a></li>
+          </ul>
+        </li>
+        <li class="treeview <?php echo is_menu('penjualan');?>">
+          <a href="#"><i class="fa fa-cart-plus"></i> <span>Transaksi Penjualan</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+            <li class="<?php echo is_menu('penjualan');?>"><a href="<?php echo site_url('penjualan');?>"><i class="fa fa-area-chart" aria-hidden="true"></i> <span>List Penjualan</span></a></li>
+            <li class="<?php echo is_menu('penjualan','create');?>"><a href="<?php echo site_url('penjualan/create');?>"><i class="fa fa-plus-square-o" aria-hidden="true"></i> <span>Add Penjualan</span></a></li>
           </ul>
         </li>
       </ul>

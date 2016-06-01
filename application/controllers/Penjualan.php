@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Transaksi extends MY_Controller {
+class Penjualan extends MY_Controller {
 	function __construct(){
         parent::__construct();
 		$this->load->model('auth_model');
         $this->load->library('form_validation');
-		$this->load->model('transaksi_model');
-		$this->load->model('supplier_model');
+		$this->load->model('penjualan_model');
+		$this->load->model('pelanggan_model');
 		$this->load->model('kategori_model');
 		$this->load->model('produk_model');
 		
@@ -21,38 +21,40 @@ class Transaksi extends MY_Controller {
 		if(isset($_GET['search'])){
 			$filter = '';
 			if(!empty($_GET['id']) && $_GET['id'] != ''){
-				$filter['purchase_transaction.id'] = $_GET['id'];
+				$filter['sales_transaction.id'] = $_GET['id'];
 			}
 
 			if(!empty($_GET['date']) && $_GET['date'] != ''){
-				$filter['DATE(purchase_transaction.date)'] = $_GET['date'];
+				$filter['DATE(sales_transaction.date)'] = $_GET['date'];
 			}
 
-			$total_row = $this->transaksi_model->count_total_filter($filter);
-			$data['transaksis'] = $this->transaksi_model->get_filter($filter,url_param());
+			$total_row = $this->penjualan_model->count_total_filter($filter);
+			$data['penjualans'] = $this->penjualan_model->get_filter($filter,url_param());
 		}else{
-			$total_row = $this->transaksi_model->count_total();
-			$data['transaksis'] = $this->transaksi_model->get_all(url_param());
+			$total_row = $this->penjualan_model->count_total();
+			$data['penjualans'] = $this->penjualan_model->get_all(url_param());
 		}
 		$data['paggination'] = get_paggination($total_row,get_search());
-		$this->load->view('transaksi/index',$data);
+		$this->load->view('penjualan/index',$data);
 	}
 	
 	function create(){
 		// destry cart
 		$this->cart->destroy();
-		$data['suppliers'] = $this->supplier_model->get_all();
+
+		$data['code_penjualan'] = "OUT".strtotime(date("Y-m-d H:i:s"));
+		$data['customers'] = $this->pelanggan_model->get_all();
 		$data['kategoris'] = $this->kategori_model->get_all();
-		$this->load->view('transaksi/form',$data);
+		$this->load->view('penjualan/form',$data);
 	}
 	
 	public function detail($id){
-		$details = $this->transaksi_model->get_detail($id);
+		$details = $this->penjualan_model->get_detail($id);
 		if($details){
 			$data['details'] = $details;
-			$this->load->view('transaksi/detail',$data);
+			$this->load->view('penjualan/detail',$data);
 		}else{
-			redirect(site_url('transaksi'));
+			redirect(site_url('penjualan'));
 		}
 	}
 	public function edit($id){
@@ -61,14 +63,14 @@ class Transaksi extends MY_Controller {
 		$data['suppliers'] = $this->supplier_model->get_all();
 		$data['kategoris'] = $this->kategori_model->get_all();
 
-		$transaksi = $this->transaksi_model->get_detail($id);
+		$transaksi = $this->penjualan_model->get_detail($id);
 		if($transaksi){
 			//print_r($transaksi); exit;
 			$data['carts'] = $this->_process_cart($transaksi);
-			$data['transaksi'] = $transaksi;
-			$this->load->view('transaksi/form',$data);
+			$data['pembelian'] = $transaksi;
+			$this->load->view('penjualan/form',$data);
 		}else{
-			redirect(site_url('transaksi'));
+			redirect(site_url('penjualan'));
 		}
 	}
 
@@ -96,7 +98,7 @@ class Transaksi extends MY_Controller {
 
 	public function check_id(){
 		$id = $this->input->post('id');
-		$check_id = $this->transaksi_model->get_by_id($id);
+		$check_id = $this->penjualan_model->get_by_id($id);
 		if(!$check_id){
 			echo "available";
 		}else{
@@ -147,17 +149,23 @@ class Transaksi extends MY_Controller {
 		}
 	}
 	public function add_process(){
-		$this->form_validation->set_rules('transaction_id', 'transaction_id', 'required');
-		$this->form_validation->set_rules('supplier_id', 'supplier_id', 'required');
+		$this->form_validation->set_rules('sales_id', 'sales_id', 'required');
+		$this->form_validation->set_rules('costumer_id', 'costumer_id', 'required');
+		$this->form_validation->set_rules('is_cash', 'is_cash', 'required');
 
 		$carts =  $this->cart->contents();
 		if($this->form_validation->run() != FALSE && !empty($carts) && is_array($carts)){
-			$data['id'] = escape($this->input->post('transaction_id'));
-			$data['supplier_id'] = escape($this->input->post('supplier_id'));
+			$data['id'] = escape($this->input->post('sales_id'));
+			$data['customer_id'] = escape($this->input->post('costumer_id'));
+			$data['is_cash'] = escape($this->input->post('is_cash'));
 			$data['total_price'] = $this->cart->total();
 			$data['total_item'] = $this->cart->total_items();
 
-			$this->transaksi_model->insert($data);
+			if($data['is_cash'] == true){
+				$data['pay_deadline_date'] = date('Y-m-d', strtotime("+30 days"));
+			}
+
+			$this->penjualan_model->insert($data);
 			if($data['id']){
 				$this->_insert_purchase_data($data['id'],$carts);
 			}
@@ -166,31 +174,53 @@ class Transaksi extends MY_Controller {
 			echo json_encode(array('status' => 'error'));
 		}
 	}
-	private function _insert_purchase_data($transaction_id,$carts){
+	public function update($transaction_id){
+		$this->form_validation->set_rules('supplier_id', 'supplier_id', 'required');
+
+		$carts =  $this->cart->contents();
+		if($this->form_validation->run() != FALSE && !empty($carts) && is_array($carts)){
+			$data['id'] = $transaction_id;
+			$data['supplier_id'] = escape($this->input->post('supplier_id'));
+			$data['total_price'] = $this->cart->total();
+			$data['total_item'] = $this->cart->total_items();
+
+
+			$this->penjualan_model->update($transaction_id,$data);
+			if($data['id']){
+				$transaksi = $this->penjualan_model->get_detail($transaction_id);
+				$this->penjualan_model->delete_purchase_data_trx($transaction_id);
+				$this->_insert_purchase_data($transaction_id,$carts);
+			}
+			echo json_encode(array('status' => 'ok'));
+		}else{
+			echo json_encode(array('status' => 'error'));
+		}
+	}
+	private function _insert_purchase_data($sales_id,$carts){
 		foreach($carts as $key => $cart){
 			$purchase_data = array(
-				'transaction_id' => $transaction_id,
+				'sales_id' => $sales_id,
 				'product_id' => $cart['id'],
 				'category_id' => $cart['category_id'],
 				'quantity' => $cart['qty'],
 				'price_item' => $cart['price'],
 				'subtotal' => $cart['subtotal']
 			);
-			$this->transaksi_model->insert_purchase_data($purchase_data);
+			$this->penjualan_model->insert_purchase_data($purchase_data);
 
 			$this->produk_model->update_qty_add($cart['id'],array('product_qty' => $cart['qty']));
 		}
 		$this->cart->destroy();
 	}
 	public function delete($transaction_id){
-		$transaksi = $this->transaksi_model->get_detail($transaction_id);
+		$transaksi = $this->penjualan_model->get_detail($transaction_id);
 		foreach($transaksi as $trans){
 			$product = $this->produk_model->get_by_id($trans->product_id);
 			$total = $product[0]['product_qty'] - $trans->quantity;
 			$this->produk_model->update_qty($product[0]['id'] ,array('product_qty' => $total));
 		}
-		$this->transaksi_model->delete($transaction_id);
-		$this->transaksi_model->delete_purchase_data_trx($transaction_id);
-		redirect(site_url('transaksi'));
+		$this->penjualan_model->delete($transaction_id);
+		$this->penjualan_model->delete_purchase_data_trx($transaction_id);
+		redirect(site_url('penjualan'));
 	}
 }

@@ -84,4 +84,23 @@ class Produk_model extends CI_Model {
 		$this->db->where('id', $id);
 		$this->db->update('product', $data);
 	}
+	public function update_qty_add($id,$data){
+		$this->db->set('product_qty', 'product_qty+'.$data['product_qty'], FALSE);
+		$this->db->where('id', $id);
+		$this->db->update('product');
+	}
+	public function process_qty($transaction = array()){
+		$data = '';
+		foreach($transaction as $k => $item){
+			$data[$item->product_id] = $item->quantity;
+		}
+		return $data;
+	}
+	public function process_cart_qty($carts = array()){
+		$data = '';
+		foreach($carts as $k => $item){
+			$data[$item['id']] = $item['qty'];
+		}
+		return $data;
+	}
 }
