@@ -14,21 +14,21 @@
       <div class="row">
         <div class="col-xs-12">
           <ul class="nav nav-tabs">
-            <li role="presentation"><a href="<?php echo site_url('penjualan/create');?>">Input Transaksi</a></li>
-            <li role="presentation" class="active"><a href="<?php echo site_url('penjualan');?>">List Transaksi</a></li>
+            <li role="presentation"><a href="<?php echo site_url('penjualan/create');?>">Input Penjualan</a></li>
+            <li role="presentation" class="active"><a href="<?php echo site_url('penjualan');?>">List Penjualan</a></li>
           </ul>
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Table Transaksi</h3>
+              <h3 class="box-title">Data Table Penjualan</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <form action="<?php echo site_url('transaksi?search=true');?>" method="GET">
+              <form action="<?php echo site_url('penjualan?search=true');?>" method="GET">
                 <input type="hidden" class="form-control" name="search" value="true"/>
                 <div class="box-body pad">
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label for="id">Code Transaksi</label>
+                      <label for="id">Code Penjualan</label>
                       <input type="text" class="form-control" name="id" value="<?php echo !empty($_GET['id']) ? $_GET['id'] : '';?>"/>
                     </div>
                   </div>
@@ -46,7 +46,7 @@
                   <div class="col-md-3">
                     <div class="form-group">
                       <label for="submit">&nbsp</label>
-                      <input type="submit" value="Submit" class="form-control btn btn-primary">
+                      <input type="submit" value="Search" class="form-control btn btn-primary">
                     </div>
                   </div>
                   <div class="col-md-3">
@@ -69,17 +69,17 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php if(isset($transaksis) && is_array($transaksis)){ ?>
-                  <?php foreach($transaksis as $transaksi){?>
+                <?php if(isset($penjualans) && is_array($penjualans)){ ?>
+                  <?php foreach($penjualans as $penjualan){?>
                     <tr>
-                      <td><?php echo $transaksi->id;?></td>
-                      <td><?php echo $transaksi->supplier_name;?></td>
-                      <td><?php echo $transaksi->total_item;?></td>
-                      <td>Rp<?php echo number_format($transaksi->total_price);?></td>
-                      <td><?php echo $transaksi->date;?></td>
+                      <td><?php echo $penjualan->id;?></td>
+                      <td><?php echo $penjualan->customer_name;?></td>
+                      <td><?php echo $penjualan->total_item;?></td>
+                      <td>Rp<?php echo number_format($penjualan->total_price);?></td>
+                      <td><?php echo $penjualan->date;?></td>
                       <td>
-                        <a href="<?php echo site_url('transaksi/detail').'/'.$transaksi->id;?>" class="btn btn-xs btn-default">Detail</a>
-                        <a onclick="return confirm('Are you sure you want to delete this transaction?');" href="<?php echo site_url('transaksi/delete').'/'.$transaksi->id;?>" class="btn btn-xs btn-danger">Delete</a>
+                        <a href="<?php echo site_url('penjualan/detail').'/'.$penjualan->id;?>" class="btn btn-xs btn-default">Detail</a>
+                        <a onclick="return confirm('Are you sure you want to delete this penjualan?');" href="<?php echo site_url('penjualan/delete').'/'.$penjualan->id;?>" class="btn btn-xs btn-danger">Delete</a>
                       </td>
                     </tr>
                   <?php } ?>

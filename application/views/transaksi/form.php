@@ -101,13 +101,13 @@
                             </select>
                           </td>
                           <td>
-                            <select class="form-control" id="transaksi_product_id" name="product_id"></select>
+                            <select class="form-control" name="product_id"></select>
                           </td>
                           <td>
                             <input type="number" id="jumlah" class="form-control" name="jumlah" min="1" value="1"/>
                           </td>
                           <td>
-                            <select class="form-control" id="sale_price" name="sale_price"></select>
+                            <input type="number" class="form-control" id="sale_price" name="sale_price" placeholder="Harga" required/>
                           </td>
                           <td>
                             <a href="#" class="btn btn-primary" id="tambah-barang">Input Barang</a>

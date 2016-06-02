@@ -21,7 +21,6 @@
                         <div class="box-header">
                             <h3 class="box-title">Data Transaksi Detail <?php echo $details[0]->id;?></h3>
                             <div class="pull-right">
-                                <span><a href="<?php echo site_url('transaksi/edit').'/'.$details[0]->id;?>" class="btn btn-sm btn-primary">Edit</a></span>
                                 <span><a href="<?php echo site_url('transaksi');?>" class="btn btn-sm btn-default">Back</a></span>
                             </div>
                         </div>

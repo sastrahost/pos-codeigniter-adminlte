@@ -185,29 +185,36 @@ var $el = $("body");
     });
     $("#submit-transaksi").on('click',function(e){
         e.preventDefault();
+        var status = false;
+
         var transaction_id = $("#kode_transaksi").val();
         var supplier_id = $("#supplier_id").val();
         var status_id = $("#kode_transaksi").attr("data-attr");
-        if(typeof transaction_id !== undefined){
+        if(typeof transaction_id !== "undefined" && transaction_id != ""){
+            var status = true;
+            var method = "transaksi";
             var arr = {
                 'transaction_id': transaction_id,
                 'supplier_id': supplier_id
             };
+            console.log(arr);
         }
 
         // Penjualan
         var sales_id = $("#penjualan_id").val();
-        var costumer_id = $("#costumer_id").val();
+        var customer_id = $("#customer_id").val();
         var is_cash = $("#is_cash").val();
-        if(typeof sales_id !== undefined){
+        if(typeof sales_id !== "undefined" && sales_id != ""){
+            var status = true;
+            var method = "penjualan";
             var arr = {
                 'sales_id': sales_id,
-                'costumer_id': costumer_id,
+                'customer_id': customer_id,
                 'is_cash' : is_cash
             };
+            console.log(arr);
         }
-        if((supplier_id !== '' && transaction_id !== '' && status_id != "false") ||
-            (sales_id !== '' && costumer_id !== '' && is_cash !== '')) {
+        if(status == true) {
             $.ajax({
                 url: $("#transaction-form").attr("action"),
                 data: arr,
@@ -220,7 +227,9 @@ var $el = $("body");
                     $el.faLoading(false);
                     if(response.status == "ok"){
                         alert("sukses");
-                        window.location.href = $("base").attr("url") + 'transaksi';
+                        window.location.href = $("base").attr("url") + method;
+                    }else if(response.status == "limit"){
+                        alert("Stok jumlah produk yang anda pilih sudah habis");
                     }else{
                         alert("Terjadi error di server, silahkan coba lagi");
                     }

@@ -46,7 +46,7 @@
                   <div class="col-md-3">
                     <div class="form-group">
                       <label for="submit">&nbsp</label>
-                      <input type="submit" value="Submit" class="form-control btn btn-primary">
+                      <input type="submit" value="Search" class="form-control btn btn-primary">
                     </div>
                   </div>
                   <div class="col-md-3">

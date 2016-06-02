@@ -46,7 +46,7 @@
                   <div class="form-group">
                     <label class="col-sm-4 control-label" for="category_id">Customer</label>
                     <div class="col-sm-8">
-                      <select class="form-control" id="costumer_id" name="costumer_id">
+                      <select class="form-control" id="customer_id" name="customer_id">
                         <?php if(isset($customers) && is_array($customers)){?>
                           <?php foreach($customers as $item){?>
                             <option value="<?php echo $item->id;?>" <?php if(!empty($penjualan) && $item->id == $penjualan[0]->custumer_id) echo 'selected="selected"';?>>
@@ -70,10 +70,10 @@
                     <label class="col-sm-4 control-label" for="category_id">Metode Pembayaran</label>
                     <div class="col-sm-8">
                       <select class="form-control" id="is_cash" name="is_cash">
-                        <option value="true" <?php if(!empty($penjualan) && $penjualan[0]->is_cash == true) echo 'selected="selected"';?>>
+                        <option value="1" <?php if(!empty($penjualan) && $penjualan[0]->is_cash == true) echo 'selected="selected"';?>>
                           Cash
                         </option>
-                        <option value="false" <?php if(!empty($penjualan) && $penjualan[0]->is_cash == false) echo 'selected="selected"';?>>
+                        <option value="0" <?php if(!empty($penjualan) && $penjualan[0]->is_cash == false) echo 'selected="selected"';?>>
                           Bayar Nanti
                         </option>
                       </select>

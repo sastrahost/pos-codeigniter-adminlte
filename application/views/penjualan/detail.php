@@ -4,7 +4,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Transaksi Pembelian Detail
+                Transaksi Penjualan Detail
                 <small>Detail Transaksi</small>
             </h1>
         </section>
@@ -14,15 +14,14 @@
             <div class="row">
                 <div class="col-xs-12">
                     <ul class="nav nav-tabs">
-                        <li role="presentation"><a href="<?php echo site_url('transaksi/create');?>">Input Transaksi</a></li>
-                        <li role="presentation" class="active"><a href="<?php echo site_url('transaksi');?>">List Transaksi</a></li>
+                        <li role="presentation"><a href="<?php echo site_url('penjualan/create');?>">Input Penjualan</a></li>
+                        <li role="presentation" class="active"><a href="<?php echo site_url('penjualan');?>">List Penjualan</a></li>
                     </ul>
                     <div class="box">
                         <div class="box-header">
                             <h3 class="box-title">Data Transaksi Detail <?php echo $details[0]->id;?></h3>
                             <div class="pull-right">
-                                <span><a href="<?php echo site_url('transaksi/edit').'/'.$details[0]->id;?>" class="btn btn-sm btn-primary">Edit</a></span>
-                                <span><a href="<?php echo site_url('transaksi');?>" class="btn btn-sm btn-default">Back</a></span>
+                                <span><a href="<?php echo site_url('penjualan');?>" class="btn btn-sm btn-default">Back</a></span>
                             </div>
                         </div>
                         <!-- /.box-header -->
@@ -31,7 +30,7 @@
                                 <thead>
                                 <tr>
                                     <th>Transaction ID</th>
-                                    <th>Supplier Name</th>
+                                    <th>Customer Name</th>
                                     <th>Total Item</th>
                                     <th>Total</th>
                                     <th>Date</th>
@@ -40,7 +39,7 @@
                                 <tbody>
                                     <tr>
                                         <td><?php echo $details[0]->id;?></td>
-                                        <td><?php echo $details[0]->supplier_name;?></td>
+                                        <td><?php echo $details[0]->customer_name;?></td>
                                         <td><?php echo $details[0]->total_item;?></td>
                                         <td>Rp<?php echo number_format($details[0]->total_price);?></td>
                                         <td><?php echo $details[0]->date;?></td>

@@ -150,19 +150,26 @@ class Penjualan extends MY_Controller {
 	}
 	public function add_process(){
 		$this->form_validation->set_rules('sales_id', 'sales_id', 'required');
-		$this->form_validation->set_rules('costumer_id', 'costumer_id', 'required');
+		$this->form_validation->set_rules('customer_id', 'customer_id', 'required');
 		$this->form_validation->set_rules('is_cash', 'is_cash', 'required');
 
 		$carts =  $this->cart->contents();
+		if($this->_check_qty($carts)){
+			echo json_encode(array('status' => 'limit'));
+			exit;
+		}
+		
 		if($this->form_validation->run() != FALSE && !empty($carts) && is_array($carts)){
 			$data['id'] = escape($this->input->post('sales_id'));
-			$data['customer_id'] = escape($this->input->post('costumer_id'));
+			$data['customer_id'] = escape($this->input->post('customer_id'));
 			$data['is_cash'] = escape($this->input->post('is_cash'));
 			$data['total_price'] = $this->cart->total();
 			$data['total_item'] = $this->cart->total_items();
 
-			if($data['is_cash'] == true){
+			if($data['is_cash'] == 0){
 				$data['pay_deadline_date'] = date('Y-m-d', strtotime("+30 days"));
+			}else{
+				$data['pay_deadline_date'] = date('Y-m-d');
 			}
 
 			$this->penjualan_model->insert($data);
@@ -174,7 +181,7 @@ class Penjualan extends MY_Controller {
 			echo json_encode(array('status' => 'error'));
 		}
 	}
-	public function update($transaction_id){
+	/*public function update($transaction_id){
 		$this->form_validation->set_rules('supplier_id', 'supplier_id', 'required');
 
 		$carts =  $this->cart->contents();
@@ -195,6 +202,17 @@ class Penjualan extends MY_Controller {
 		}else{
 			echo json_encode(array('status' => 'error'));
 		}
+	}*/
+	private function _check_qty($carts){
+		$status = false;
+		foreach($carts as $key => $cart){
+			$product = $this->produk_model->get_by_id($cart['id']);
+			if($cart['qty'] > $product[0]['product_qty']){
+				$status = true;
+				break;
+			}
+		}
+		return $status;
 	}
 	private function _insert_purchase_data($sales_id,$carts){
 		foreach($carts as $key => $cart){
@@ -208,7 +226,7 @@ class Penjualan extends MY_Controller {
 			);
 			$this->penjualan_model->insert_purchase_data($purchase_data);
 
-			$this->produk_model->update_qty_add($cart['id'],array('product_qty' => $cart['qty']));
+			$this->produk_model->update_qty_min($cart['id'],array('product_qty' => $cart['qty']));
 		}
 		$this->cart->destroy();
 	}
