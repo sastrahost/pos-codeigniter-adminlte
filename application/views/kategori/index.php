@@ -26,18 +26,7 @@
                             <form action="<?php echo site_url('kategori?search=true');?>" method="GET">
                                 <input type="hidden" class="form-control" name="search" value="true"/>
                                 <div class="box-body pad">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="id">Code Kategori</label>
-                                            <input type="text" class="form-control" name="id" value="<?php echo !empty($_GET['id']) ? $_GET['id'] : '';?>"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="customer_name">Nama Kategori</label>
-                                            <input type="text" class="form-control" name="kategori_name" value="<?php echo !empty($_GET['kategori_name']) ? $_GET['kategori_name'] : '';?>"/>
-                                        </div>
-                                    </div>
+                                    <?php echo search_form('category');?>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="submit">&nbsp</label>

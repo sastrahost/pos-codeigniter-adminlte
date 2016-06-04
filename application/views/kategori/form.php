@@ -68,8 +68,10 @@
               </div>
               <!-- /.box-body -->
               <div class="box-footer">
-                <a class="btn btn-default" href="<?php echo site_url('kategori');?>">Cancel</a>
-                <button class="btn btn-info pull-right" type="submit">Save</button>
+                <div class="col-md-3 col-md-offset-4">
+                  <a class="btn btn-default" href="<?php echo site_url('kategori');?>">Cancel</a>
+                  <button class="btn btn-info pull-right" type="submit">Save</button>
+                </div>
               </div>
               <!-- /.box-footer -->
             </form>

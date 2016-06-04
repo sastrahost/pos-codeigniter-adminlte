@@ -26,22 +26,11 @@
                             <form action="<?php echo site_url('pelanggan?search=true');?>" method="GET">
                                 <input type="hidden" class="form-control" name="search" value="true"/>
                                 <div class="box-body pad">
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="id">Code Pelanggan</label>
-                                            <input type="text" class="form-control" name="id" value="<?php echo !empty($_GET['id']) ? $_GET['id'] : '';?>"/>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label for="customer_name">Nama Pelanggan</label>
-                                            <input type="text" class="form-control" name="customer_name" value="<?php echo !empty($_GET['customer_name']) ? $_GET['customer_name'] : '';?>"/>
-                                        </div>
-                                    </div>
+                                    <?php echo search_form('customer');?>
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="submit">&nbsp</label>
-                                            <input type="submit" value="Submit" class="form-control btn btn-primary">
+                                            <input type="submit" value="Cari" class="form-control btn btn-primary">
                                         </div>
                                     </div>
                                     <div class="col-md-3">

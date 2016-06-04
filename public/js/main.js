@@ -239,7 +239,11 @@ var $el = $("body");
             alert("Silahkan periksa kode transaksi atau supplier anda!");
         }
     });
-    $('#datepicker-transaksi').datepicker({
+    $('.datepicker-transaksi').datepicker({
+        format: 'yyyy-mm-dd',
+        autoclose: true
+    });
+    $('.datepicker').datepicker({
         format: 'yyyy-mm-dd',
         autoclose: true
     });

@@ -15,14 +15,11 @@ class Pelanggan extends MY_Controller {
 
     public function index(){
         if(isset($_GET['search'])){
-            $filter = '';
-            if(!empty($_GET['id']) && $_GET['id'] != ''){
-                $filter['id'] = $_GET['id'];
+            $filter = array();
+            if(!empty($_GET['value']) && $_GET['value'] != ''){
+                $filter[$_GET['search_by'].' LIKE'] = "%".$_GET['value']."%";
             }
-
-            if(!empty($_GET['customer_name']) && $_GET['customer_name'] != ''){
-                $filter['customer_name'] = $_GET['customer_name'];
-            }
+            
             $total_row = $this->pelanggan_model->count_total_filter($filter);
             $data['pelanggans'] = $this->pelanggan_model->get_filter($filter,url_param());
         }else{

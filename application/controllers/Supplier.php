@@ -16,12 +16,8 @@ class Supplier extends MY_Controller {
 	public function index(){
 		if(isset($_GET['search'])){
 			$filter = array();
-			if(!empty($_GET['id']) && $_GET['id'] != ''){
-				$filter['id'] = $_GET['id'];
-			}
-
-			if(!empty($_GET['supplier_name']) && $_GET['supplier_name'] != ''){
-				$filter['supplier_name'] = $_GET['supplier_name'];
+			if(!empty($_GET['value']) && $_GET['value'] != ''){
+				$filter[$_GET['search_by'].' LIKE'] = "%".$_GET['value']."%";
 			}
 
 			$total_row = $this->supplier_model->count_total_filter($filter);

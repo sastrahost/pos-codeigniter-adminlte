@@ -110,3 +110,26 @@ function reconstruct_url($url){
 
 	return $constructed_url;
 }
+function search_form($module){
+	$search = !empty($_GET["search_by"]) && $_GET["search_by"] == "id" ? "selected" : "";
+	$by = !empty($_GET['search_by']) && $_GET['search_by'] == $module.'_name' ? 'selected' : '';
+	$value = !empty($_GET['value']) ? $_GET['value'] : '';
+
+	$s = '<div class="col-md-3">';
+	$s .=    '<div class="form-group">';
+	$s .=       '<label for="id">Search by</label>';
+	$s .=			'<select name="search_by" class="form-control">';
+    $s .= 		        '<option value="id" '.$search.'>ID</option>';
+	$s .= 				'<option value="'.$module.'_name" '.$by.'>Nama '.ucfirst($module).'</option>';
+	$s .= 			'</select>';
+	$s .=		'</div>';
+	$s .= 	'</div>';
+	$s .=	'<div class="col-md-3">';
+	$s .=		'<div class="form-group">';
+	$s .=			'<label for="customer_name">Value</label>';
+	$s .=			'<input type="text" class="form-control" name="value" value="'.$value.'"/>';
+	$s .=		'</div>';
+	$s .=	'</div>';
+
+	return $s;
+}

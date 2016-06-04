@@ -101,7 +101,7 @@
                             </select>
                           </td>
                           <td>
-                            <select class="form-control" name="product_id"></select>
+                            <select class="form-control" name="product_id" id="transaksi_product_id"></select>
                           </td>
                           <td>
                             <input type="number" id="jumlah" class="form-control" name="jumlah" min="1" value="1"/>

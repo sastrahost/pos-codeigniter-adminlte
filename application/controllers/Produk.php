@@ -17,13 +17,9 @@ class Produk extends MY_Controller {
 
     public function index(){
         if(isset($_GET['search'])){
-            $filter = '';
-            if(!empty($_GET['id']) && $_GET['id'] != ''){
-                $filter['id'] = $_GET['id'];
-            }
-
-            if(!empty($_GET['product_name']) && $_GET['product_name'] != ''){
-                $filter['product_name'] = $_GET['product_name'];
+            $filter = array();
+            if(!empty($_GET['value']) && $_GET['value'] != ''){
+                $filter[$_GET['search_by'].' LIKE'] = "%".$_GET['value']."%";
             }
 
             $total_row = $this->produk_model->count_total_filter($filter);

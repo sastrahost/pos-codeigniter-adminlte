@@ -30,22 +30,11 @@
               <form action="<?php echo site_url('supplier?search=true');?>" method="GET">
                 <input type="hidden" class="form-control" name="search" value="true"/>
                 <div class="box-body pad">
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label for="id">Code Supplier</label>
-                      <input type="text" class="form-control" name="id" value="<?php echo !empty($_GET['id']) ? $_GET['id'] : '';?>"/>
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="form-group">
-                      <label for="customer_name">Nama Supplier</label>
-                      <input type="text" class="form-control" name="supplier_name" value="<?php echo !empty($_GET['supplier_name']) ? $_GET['supplier_name'] : '';?>"/>
-                    </div>
-                  </div>
+                  <?php echo search_form('supplier');?>
                   <div class="col-md-3">
                     <div class="form-group">
                       <label for="submit">&nbsp</label>
-                      <input type="submit" value="Submit" class="form-control btn btn-primary">
+                      <input type="submit" value="Cari" class="form-control btn btn-primary">
                     </div>
                   </div>
                   <div class="col-md-3">

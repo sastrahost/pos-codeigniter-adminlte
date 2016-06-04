@@ -16,13 +16,10 @@ class Kategori extends MY_Controller {
     public function index(){
         if(isset($_GET['search'])){
             $filter = array();
-            if(!empty($_GET['id']) && $_GET['id'] != ''){
-                $filter['id'] = $_GET['id'];
+            if(!empty($_GET['value']) && $_GET['value'] != ''){
+                $filter[$_GET['search_by'].' LIKE'] = "%".$_GET['value']."%";
             }
-
-            if(!empty($_GET['kategori_name']) && $_GET['kategori_name'] != ''){
-                $filter['category_name'] = $_GET['kategori_name'];
-            }
+            
             $total_row = $this->kategori_model->count_total_filter($filter);
             
             $result = $this->kategori_model->get_filter($filter,url_param());

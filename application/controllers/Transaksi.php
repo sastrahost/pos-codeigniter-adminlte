@@ -21,11 +21,15 @@ class Transaksi extends MY_Controller {
 		if(isset($_GET['search'])){
 			$filter = '';
 			if(!empty($_GET['id']) && $_GET['id'] != ''){
-				$filter['purchase_transaction.id'] = $_GET['id'];
+				$filter['purchase_transaction.id LIKE'] = "%".$_GET['id']."%";
 			}
 
-			if(!empty($_GET['date']) && $_GET['date'] != ''){
-				$filter['DATE(purchase_transaction.date)'] = $_GET['date'];
+			if(!empty($_GET['date_from']) && $_GET['date_from'] != ''){
+				$filter['DATE(purchase_transaction.date) >='] = $_GET['date_from'];
+			}
+
+			if(!empty($_GET['date_end']) && $_GET['date_end'] != ''){
+				$filter['DATE(purchase_transaction.date) <='] = $_GET['date_end'];
 			}
 
 			$total_row = $this->transaksi_model->count_total_filter($filter);
