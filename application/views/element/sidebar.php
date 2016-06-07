@@ -76,6 +76,7 @@
             <li class="<?php echo is_menu('penjualan','create');?>"><a href="<?php echo site_url('penjualan/create');?>"><i class="fa fa-plus-square-o" aria-hidden="true"></i> <span>Add Penjualan</span></a></li>
           </ul>
         </li>
+        <li class="<?php echo is_menu('tunggakan');?>"><a href="<?php echo site_url('tunggakan');?>"><i class="fa fa-money" aria-hidden="true"></i> <span>List Tunggakan</span></a></li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>

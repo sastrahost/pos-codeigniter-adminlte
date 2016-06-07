@@ -197,4 +197,8 @@ class Transaksi extends MY_Controller {
 		$this->transaksi_model->delete_purchase_data_trx($transaction_id);
 		redirect(site_url('transaksi'));
 	}
+	public function export_csv(){
+		$data = $this->transaksi_model->get_filter('',url_param(),true);
+		$this->csv_library->export('transaksi.csv',$data);
+	}
 }

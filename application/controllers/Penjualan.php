@@ -245,4 +245,8 @@ class Penjualan extends MY_Controller {
 		$this->penjualan_model->delete_purchase_data_trx($transaction_id);
 		redirect(site_url('penjualan'));
 	}
+	public function export_csv(){
+		$data = $this->penjualan_model->get_filter('',url_param(),true);
+		$this->csv_library->export('sales.csv',$data);
+	}
 }

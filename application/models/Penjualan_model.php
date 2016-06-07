@@ -7,7 +7,7 @@ class Penjualan_model extends CI_Model {
 	function __construct(){
         parent::__construct();
 		$this->table = "sales_transaction";
-		$this->select_default = 'sales_transaction.id AS id, customer_name, total_price, total_item,sales_transaction.date AS date';
+		$this->select_default = 'sales_transaction.id AS id, customer_name, total_price, total_item,sales_transaction.date AS date,sales_transaction.pay_deadline_date';
 	}
 	
 	public function get_all($limit_offset = array()){
@@ -63,7 +63,7 @@ class Penjualan_model extends CI_Model {
 		$query = $this->db->get();
 		return $query->result();
 	}
-	public function get_filter($filter = '',$limit_offset = array()){
+	public function get_filter($filter = '',$limit_offset = array(),$is_array = false){
 		$this->db->select($this->select_default);
 		$this->db->join('customer', 'customer.id = sales_transaction.customer_id', 'left');
 		if(!empty($filter)){
@@ -75,7 +75,11 @@ class Penjualan_model extends CI_Model {
 		}else{
 			$query = $this->db->get($this->table,$limit_offset['limit'],$limit_offset['offset']);
 		}
-		return $query->result();
+		if($is_array){
+			return $query->result_array();
+		}else{
+			return $query->result();
+		}
 	}
 	public function count_total_filter($filter = array()){
 		if(!empty($filter)){
@@ -90,5 +94,31 @@ class Penjualan_model extends CI_Model {
 	}
 	public function delete_purchase_data_trx($transaction_id){
 		$this->db->delete('sales_data', array('sales_id' => $transaction_id));
+	}
+
+	/*
+	 * Tunggakan Disini
+	 */
+	public function count_total_filter_tunggakan($filter = array()){
+		$filter['is_cash'] = 0;
+		$query = $this->db->get_where($this->table,$filter);
+		return $query->num_rows();
+	}
+	public function get_filter_tunggakan($filter = '',$limit_offset = array(),$is_array = false){
+		$filter['is_cash'] = 0;
+		$this->db->select($this->select_default);
+		$this->db->join('customer', 'customer.id = sales_transaction.customer_id', 'left');
+		$this->db->where($filter);
+		if($limit_offset){
+			$this->db->limit($limit_offset['limit'],$limit_offset['offset']);
+		}
+		$query = $this->db->get($this->table);
+
+		if($is_array){
+			$resopnse = $query->result_array();
+		}else{
+			$resopnse = $query->result();
+		}
+		return $resopnse;
 	}
 }

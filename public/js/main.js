@@ -247,6 +247,11 @@ var $el = $("body");
         format: 'yyyy-mm-dd',
         autoclose: true
     });
+    $("#tunggakan-reset").on("click",function(e){
+        e.preventDefault();
+        $(this).closest('form').find("input[type=text], textarea").val("");
+        $('#tunggakan-date-range option:eq(0)').prop('selected', true);
+    });
 })(this.jQuery);
 
 function price(input){

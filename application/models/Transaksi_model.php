@@ -63,7 +63,7 @@ class Transaksi_model extends CI_Model {
 		$query = $this->db->get();
 		return $query->result();
 	}
-	public function get_filter($filter = '',$limit_offset = array()){
+	public function get_filter($filter = '',$limit_offset = array(),$is_array = false){
 		$this->db->select($this->select_default);
 		$this->db->join('supplier', 'supplier.id = purchase_transaction.supplier_id', 'left');
 		if(!empty($filter)){
@@ -75,7 +75,11 @@ class Transaksi_model extends CI_Model {
 		}else{
 			$query = $this->db->get($this->table,$limit_offset['limit'],$limit_offset['offset']);
 		}
-		return $query->result();
+		if($is_array){
+			return $query->result_array();
+		}else{
+			return $query->result();
+		}
 	}
 	public function count_total_filter($filter = array()){
 		if(!empty($filter)){
