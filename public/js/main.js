@@ -186,14 +186,16 @@ var $el = $("body");
     $("#submit-transaksi").on('click',function(e){
         e.preventDefault();
         var status = false;
+        var method = null;
+        var arr = null;
 
         var transaction_id = $("#kode_transaksi").val();
         var supplier_id = $("#supplier_id").val();
         var status_id = $("#kode_transaksi").attr("data-attr");
         if(typeof transaction_id !== "undefined" && transaction_id != ""){
-            var status = true;
-            var method = "transaksi";
-            var arr = {
+            status = true;
+            method = "transaksi";
+            arr = {
                 'transaction_id': transaction_id,
                 'supplier_id': supplier_id
             };
@@ -201,19 +203,21 @@ var $el = $("body");
         }
 
         // Penjualan
-        var sales_id = $("#penjualan_id").val();
-        var customer_id = $("#customer_id").val();
-        var is_cash = $("#is_cash").val();
-        if(typeof sales_id !== "undefined" && sales_id != ""){
-            var status = true;
-            var method = "penjualan";
-            var arr = {
-                'sales_id': sales_id,
-                'customer_id': customer_id,
-                'is_cash' : is_cash
-            };
-            console.log(arr);
+        var penjualan = penjualan_status();
+        if(penjualan[0] == true){
+            status = penjualan[0];
+            method = penjualan[1];
+            arr = penjualan[2];
         }
+
+        // Retur Penjualan
+        var retur_penjualan = retur_penjualan_status();
+        if(retur_penjualan[0] == true){
+            status = retur_penjualan[0];
+            method = retur_penjualan[1];
+            arr = retur_penjualan[2];
+        }
+
         if(status == true) {
             $.ajax({
                 url: $("#transaction-form").attr("action"),
@@ -252,6 +256,61 @@ var $el = $("body");
         $(this).closest('form').find("input[type=text], textarea").val("");
         $('#tunggakan-date-range option:eq(0)').prop('selected', true);
     });
+    /*
+    ** Retur Penjualan
+     */
+    $(".retur_penjualan_qty").on("keyup change",function(e){
+        var id = $(this).attr("row-id");
+        var qty = $(this).val();
+        $.post(
+             $("base").attr("url") + 'retur_penjualan/update_cart/'+id,
+            {
+                qty:qty
+            },
+            function(data,status){
+                // Sukses
+                //alert(data);
+            }
+        );
+    });
+
+    function penjualan_status(){
+        var data = false;
+        var sales_id = $("#penjualan_id").val();
+        var customer_id = $("#customer_id").val();
+        var is_cash = $("#is_cash").val();
+        if(typeof sales_id !== "undefined" && sales_id != ""){
+            var status = true;
+            var method = "penjualan";
+            var arr = {
+                'sales_id': sales_id,
+                'customer_id': customer_id,
+                'is_cash' : is_cash
+            };
+            data = [status,method,arr];
+        }
+        return data;
+    }
+
+    function retur_penjualan_status(){
+        var data = false;
+        var retur_penjualan_id = $("#retur_penjualan_id").val();
+        var code_penjualan = $("#retur_code_penjualan").val();
+        var retur_penjualan_date = $("#retur_penjualan_date").val();
+        var is_return = $("#is_return").val();
+        if(typeof retur_penjualan_id !== "undefined" && retur_penjualan_id != ""){
+            var status = true;
+            var method = "retur_penjualan";
+            var arr = {
+                'retur_penjualan_id': retur_penjualan_id,
+                'code_penjualan': code_penjualan,
+                'retur_penjualan_date' : retur_penjualan_date,
+                'is_return' : is_return
+            };
+            data = [status,method,arr];
+        }
+        return data;
+    }
 })(this.jQuery);
 
 function price(input){

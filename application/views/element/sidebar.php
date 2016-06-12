@@ -77,7 +77,16 @@
           </ul>
         </li>
         <li class="<?php echo is_menu('tunggakan');?>"><a href="<?php echo site_url('tunggakan');?>"><i class="fa fa-money" aria-hidden="true"></i> <span>List Tunggakan</span></a></li>
+        <li class="treeview <?php echo is_menu('retur_penjualan');?>">
+          <a href="#"><i class="fa fa-random"></i> <span>Retur Penjualan</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+            <li class="<?php echo is_menu('retur_penjualan');?>"><a href="<?php echo site_url('retur_penjualan');?>"><i class="fa fa-random" aria-hidden="true"></i> <span>List Retur Penjualan</span></a></li>
+            <li class="<?php echo is_menu('retur_penjualan','create');?>"><a href="<?php echo site_url('retur_penjualan/create');?>"><i class="fa fa-plus-square-o" aria-hidden="true"></i> <span>Add Retur Penjualan</span></a></li>
+          </ul>
+        </li>
       </ul>
+      <br />
+      <br />
       <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

@@ -1,18 +1,17 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Penjualan_model extends CI_Model {
+class Retur_penjualan_model extends CI_Model {
 	private $table;
 	private $select_default;
 	function __construct(){
         parent::__construct();
-		$this->table = "sales_transaction";
-		$this->select_default = 'sales_transaction.id AS id, customer_name, total_price, total_item,sales_transaction.date AS date,sales_transaction.pay_deadline_date';
+		$this->table = "sales_retur";
+		$this->select_default = '*, sales_retur.id AS id, sales_id,total_price, total_item,sales_retur.date AS date';
 	}
 	
 	public function get_all($limit_offset = array()){
 		$this->db->select($this->select_default);
-		$this->db->join('customer', 'customer.id = sales_transaction.customer_id', 'left');
 		if(!empty($limit_offset)){
 			$query = $this->db->get($this->table,$limit_offset['limit'],$limit_offset['offset']);
 		}else{
@@ -52,19 +51,29 @@ class Penjualan_model extends CI_Model {
 	public function delete($id){
 		$this->db->delete($this->table, array('id' => $id));
 	}
-	public function get_detail($id){
-		$sql = "SELECT *, sales_transaction.id AS id, product.id as product_id FROM sales_transaction 
-				JOIN sales_data ON sales_transaction.id = sales_data.sales_id 
+	public function delete_data($sales_id){
+		$this->db->delete("sales_data", array('sales_id' => $sales_id));
+	}
+	public function get_detail($sales_id){
+		$sql = "SELECT *, sales_retur.id AS id, product.id as product_id FROM sales_retur 
+				JOIN sales_data ON sales_retur.id = sales_data.sales_id 
 				JOIN product ON product.id = sales_data.product_id 
-				JOIN customer ON customer.id = sales_transaction.customer_id 
 				JOIN category ON category.id = sales_data.category_id 
-				WHERE sales_data.sales_id = '".$id."'";
+				WHERE sales_data.sales_id = '".$sales_id."'";
+		$query = $this->db->query($sql);
+		return $query->result();
+	}
+	public function get_detail_by_id($id){
+		$sql = "SELECT *, sales_retur.id AS id, product.id as product_id 
+				FROM sales_retur JOIN sales_data ON sales_retur.id = sales_data.sales_id 
+					JOIN product ON product.id = sales_data.product_id 
+					JOIN category ON category.id = sales_data.category_id 
+			  	WHERE sales_retur.id = '".$id."'";
 		$query = $this->db->query($sql);
 		return $query->result();
 	}
 	public function get_filter($filter = '',$limit_offset = array(),$is_array = false){
 		$this->db->select($this->select_default);
-		$this->db->join('customer', 'customer.id = sales_transaction.customer_id', 'left');
 		if(!empty($filter)){
 			$this->db->where($filter);
 			if($limit_offset){
