@@ -77,23 +77,25 @@
                 <tbody>
                 <?php if(isset($penjualans) && is_array($penjualans)){ ?>
                   <?php foreach($penjualans as $penjualan){?>
-                    <tr>
-                      <td><?php echo $penjualan->id;?></td>
-                      <td>
-                        <?php echo $penjualan->sales_id;?>
-                        <a target="_blank" href="<?php echo site_url('penjualan/detail').'/'.$penjualan->sales_id;?>" class="btn btn-xs btn-primary">
-                          detail
-                        </a>
-                      </td>
-                      <td><?php echo $penjualan->total_item;?></td>
-                      <td>Rp<?php echo number_format($penjualan->total_price);?></td>
-                      <td><?php echo $penjualan->is_return == 1 ? "yes" : "no";?></td>
-                      <td><?php echo $penjualan->date;?></td>
-                      <td>
-                        <a href="<?php echo site_url('retur_penjualan/edit').'/'.$penjualan->id;?>" class="btn btn-xs btn-default">Edit</a>
-                        <a onclick="return confirm('Are you sure you want to delete this penjualan?');" href="<?php echo site_url('retur_penjualan/delete').'/'.$penjualan->id;?>" class="btn btn-xs btn-danger">Delete</a>
-                      </td>
-                    </tr>
+					<?php if($penjualan->is_return == 0){?>
+						<tr>
+						  <td><?php echo $penjualan->id;?></td>
+						  <td>
+							<?php echo $penjualan->sales_id;?>
+							<a target="_blank" href="<?php echo site_url('penjualan/detail').'/'.$penjualan->sales_id;?>" class="btn btn-xs btn-primary">
+							  detail
+							</a>
+						  </td>
+						  <td><?php echo $penjualan->total_item;?></td>
+						  <td>Rp<?php echo number_format($penjualan->total_price);?></td>
+						  <td><?php echo $penjualan->is_return == 1 ? "yes" : "no";?></td>
+						  <td><?php echo $penjualan->date;?></td>
+						  <td>
+							<a href="<?php echo site_url('retur_penjualan/edit').'/'.$penjualan->id;?>" class="btn btn-xs btn-default">Edit</a>
+							<a onclick="return confirm('Are you sure you want to delete this penjualan?');" href="<?php echo site_url('retur_penjualan/delete').'/'.$penjualan->id;?>" class="btn btn-xs btn-danger">Delete</a>
+						  </td>
+						</tr>
+					<?php } ?>  
                   <?php } ?>
                 <?php } ?>
                 </tbody>

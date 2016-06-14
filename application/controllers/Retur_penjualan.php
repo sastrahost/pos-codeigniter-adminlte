@@ -248,9 +248,16 @@ class Retur_penjualan extends MY_Controller {
 			$data['id'] = $retur_id;
 			$data['total_price'] = $this->cart->total();
 			$data['total_item'] = $this->cart->total_items();
-			$data['is_return'] = $is_return != "undefined" ? (int)$is_return : "0";
+			$data['is_return'] = ($is_return != "undefined") ? (int)$is_return : "0";
 
 			$this->penjualan->update($retur_id,$data);
+			if($is_return == "1"){
+				// Update product. PERLU CEK QUANTITY
+				foreach($carts as $cart){
+					$this->produk_model->update_qty_min($cart['id'],array('product_qty' => $cart['qty']));
+				}
+			}
+			
 			if($data['id']){
 				$this->_insert_purchase_data($data['id'],$carts);
 			}

@@ -14,8 +14,8 @@
       <div class="row">
         <div class="col-xs-12">
           <ul class="nav nav-tabs">
-            <li role="presentation"><a href="<?php echo site_url('penjualan/create');?>">Input Retur Penjualan</a></li>
-            <li role="presentation" class="active"><a href="<?php echo site_url('penjualan');?>">List Retur Penjualan</a></li>
+            <li role="presentation" class="active"><a href="<?php echo site_url('retur_penjualan/create');?>">Input Retur Penjualan</a></li>
+            <li role="presentation"><a href="<?php echo site_url('retur_penjualan');?>">List Retur Penjualan</a></li>
           </ul>
           <div class="box">
             <div class="box-header">
