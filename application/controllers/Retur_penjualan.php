@@ -237,14 +237,16 @@ class Retur_penjualan extends MY_Controller {
 			exit;
 		}
 
-		// Delete Row on sales_data table
-		foreach($details as $detail){
-			$this->penjualan->delete_data($detail->sales_id);
-		}
 
 		$carts =  $this->cart->contents();
 		$is_return = escape($this->input->post("is_return"));
-		if(!empty($carts) && is_array($carts)){
+		$check_qty = $this->_check_qty($carts);
+		if(!empty($carts) && is_array($carts) && $check_qty){
+			// Delete Row on sales_data table
+			foreach($details as $detail){
+				$this->penjualan->delete_data($detail->sales_id);
+			}
+			
 			$data['id'] = $retur_id;
 			$data['total_price'] = $this->cart->total();
 			$data['total_item'] = $this->cart->total_items();
@@ -252,7 +254,7 @@ class Retur_penjualan extends MY_Controller {
 
 			$this->penjualan->update($retur_id,$data);
 			if($is_return == "1"){
-				// Update product. PERLU CEK QUANTITY
+				// Update product
 				foreach($carts as $cart){
 					$this->produk_model->update_qty_min($cart['id'],array('product_qty' => $cart['qty']));
 				}
@@ -263,9 +265,25 @@ class Retur_penjualan extends MY_Controller {
 			}
 
 			echo json_encode(array('status' => 'ok','is_return' => $is_return));
+		}else if(!$check_qty){
+			echo json_encode(array('status' => 'limit'));
 		}else{
 			echo json_encode(array('status' => 'error','is_return' => $is_return));
 		}
+	}
+
+	private function _check_qty($carts){
+		$result = true;
+		foreach($carts as $cart) {
+			// Check Quantity Product
+			$product = $this->produk_model->get_by_id($cart['id']);
+			$qty = $product[0]['product_qty'];
+			if($cart['qty'] > $qty){
+				$result = false;
+				break;
+			}
+		}
+		return $result;
 	}
 	/*private function _check_qty($carts){
 		$status = false;

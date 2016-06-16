@@ -69,7 +69,7 @@
                   <th>Sales TRX ID</th>
                   <th>Total Item</th>
                   <th>Total Harga</th>
-                  <th>Is Return</th>
+                  <th>Pengembalian Barang</th>
                   <th>Date</th>
                   <th>Action</th>
                 </tr>
@@ -77,7 +77,6 @@
                 <tbody>
                 <?php if(isset($penjualans) && is_array($penjualans)){ ?>
                   <?php foreach($penjualans as $penjualan){?>
-					<?php if($penjualan->is_return == 0){?>
 						<tr>
 						  <td><?php echo $penjualan->id;?></td>
 						  <td>
@@ -88,14 +87,18 @@
 						  </td>
 						  <td><?php echo $penjualan->total_item;?></td>
 						  <td>Rp<?php echo number_format($penjualan->total_price);?></td>
-						  <td><?php echo $penjualan->is_return == 1 ? "yes" : "no";?></td>
+						  <td><?php echo $penjualan->is_return == 1 ? "Complete" : "Not Complete";?></td>
 						  <td><?php echo $penjualan->date;?></td>
 						  <td>
-							<a href="<?php echo site_url('retur_penjualan/edit').'/'.$penjualan->id;?>" class="btn btn-xs btn-default">Edit</a>
+							<?php if($penjualan->is_return == 0){?>
+								<a href="<?php echo site_url('retur_penjualan/edit').'/'.$penjualan->id;?>" class="btn btn-xs btn-default">Edit</a>
+							<?php }else{ ?>
+								<span class="btn-xs btn-success">Complete</span>		
+							<?php } ?>
+							
 							<a onclick="return confirm('Are you sure you want to delete this penjualan?');" href="<?php echo site_url('retur_penjualan/delete').'/'.$penjualan->id;?>" class="btn btn-xs btn-danger">Delete</a>
 						  </td>
 						</tr>
-					<?php } ?>  
                   <?php } ?>
                 <?php } ?>
                 </tbody>
