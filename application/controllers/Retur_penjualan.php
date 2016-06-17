@@ -216,8 +216,9 @@ class Retur_penjualan extends MY_Controller {
 		$this->cart->destroy();
 
 		$details = $this->penjualan->get_detail($retur_id);
-		if(!$details){
-			redirect(site_url());
+
+		if(!$details || $details[0]->is_return == 1){
+			redirect(site_url('retur_penjualan'));
 		}
 		$cart_data = $this->_process_cart($details);
 		//print_r($cart_data); exit;
@@ -246,7 +247,7 @@ class Retur_penjualan extends MY_Controller {
 			foreach($details as $detail){
 				$this->penjualan->delete_data($detail->sales_id);
 			}
-			
+
 			$data['id'] = $retur_id;
 			$data['total_price'] = $this->cart->total();
 			$data['total_item'] = $this->cart->total_items();
@@ -329,6 +330,5 @@ class Retur_penjualan extends MY_Controller {
 	}
 	public function export_csv(){
 		$data = $this->penjualan->get_filter('',url_param(),true);
-		$this->csv_library->export('sales.csv',$data);
 	}
 }
