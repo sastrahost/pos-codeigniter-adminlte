@@ -84,6 +84,13 @@
             <li class="<?php echo is_menu('retur_penjualan','create');?>"><a href="<?php echo site_url('retur_penjualan/create');?>"><i class="fa fa-plus-square-o" aria-hidden="true"></i> <span>Add Retur Penjualan</span></a></li>
           </ul>
         </li>
+        <li class="treeview <?php echo is_menu('retur_purchase');?>">
+          <a href="#"><i class="fa fa-share"></i> <span>Retur Purhcase</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+            <li class="<?php echo is_menu('retur_purchase');?>"><a href="<?php echo site_url('retur_purchase');?>"><i class="fa fa-share" aria-hidden="true"></i> <span>List Retur Purchase</span></a></li>
+            <li class="<?php echo is_menu('retur_purchase','create');?>"><a href="<?php echo site_url('retur_purchase/create');?>"><i class="fa fa-plus-square-o" aria-hidden="true"></i> <span>Add Retur Purchase</span></a></li>
+          </ul>
+        </li>
       </ul>
       <br />
       <br />

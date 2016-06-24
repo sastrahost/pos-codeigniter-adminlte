@@ -268,8 +268,27 @@ var $el = $("body");
                 qty:qty
             },
             function(data,status){
-                // Sukses
-                //alert(data);
+                var res = $.parseJSON(data);
+                $("#total-pembelian").text("Rp"+price(res.total));
+            }
+        );
+    });
+
+
+    /*
+     ** Retur Purchase
+     */
+    $(".retur_purchase_qty").on("keyup change",function(e){
+        var id = $(this).attr("row-id");
+        var qty = $(this).val();
+        $.post(
+            $("base").attr("url") + 'retur_purchase/update_cart/'+id,
+            {
+                qty:qty
+            },
+            function(data,status){
+                var res = $.parseJSON(data);
+                $("#total-pembelian").text("Rp"+price(res.total));
             }
         );
     });
@@ -294,17 +313,17 @@ var $el = $("body");
 
     function retur_penjualan_status(){
         var data = false;
-        var retur_penjualan_id = $("#retur_penjualan_id").val();
-        var code_penjualan = $("#retur_code_penjualan").val();
-        var retur_penjualan_date = $("#retur_penjualan_date").val();
+        var retur_id = $("#retur_id").val();
+        var retur_code = $("#retur_code").val();
+        var retur_date = $("#retur_date").val();
         var is_return = $("#is_return").val();
-        if(typeof retur_penjualan_id !== "undefined" && retur_penjualan_id != ""){
+        if(typeof retur_id !== "undefined" && retur_code != ""){
             var status = true;
-            var method = "retur_penjualan";
+            var method = $("base").attr("class-attr");
             var arr = {
-                'retur_penjualan_id': retur_penjualan_id,
-                'code_penjualan': code_penjualan,
-                'retur_penjualan_date' : retur_penjualan_date,
+                'retur_id': retur_id,
+                'retur_code': retur_code,
+                'retur_date' : retur_date,
                 'is_return' : is_return
             };
             data = [status,method,arr];
@@ -314,7 +333,7 @@ var $el = $("body");
 })(this.jQuery);
 
 function price(input){
-    return (input).formatMoney(0, ',', '.');
+    return (input).formatMoney(0, ',', ',');
 }
 Number.prototype.formatMoney = function(c, d, t){
     var n = this,

@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="<?php echo base_url('public');?>/bootstrap/css/bootstrap.min.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url('public');?>/plugins/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <link rel="stylesheet" href="<?php echo base_url('public');?>/plugins/ionic/ionicons.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url('public');?>/dist/css/AdminLTE.min.css">
   <!-- iCheck -->
@@ -36,10 +36,10 @@
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <link rel="stylesheet" href="<?php echo base_url('public');?>/plugins/ie/html5shiv.min.js">
+  <link rel="stylesheet" href="<?php echo base_url('public');?>/plugins/ie/respond.min.js">
   <![endif]-->
-  <base url="<?php echo site_url();?>"/>
+  <base url="<?php echo site_url();?>" class-attr="<?php echo $this->router->fetch_class();?>"/>
 </head>
 <?php if($this->is_login){?>
 	<?php $this->load->view('element/header');?>

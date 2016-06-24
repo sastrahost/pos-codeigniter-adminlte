@@ -1,12 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Retur_penjualan extends MY_Controller {
+class Retur_purchase extends MY_Controller {
 	function __construct(){
         parent::__construct();
 		$this->load->model('auth_model');
         $this->load->library('form_validation');
 		$this->load->model('retur_purchase_model');
+		$this->load->model('transaksi_model');
 		$this->retur_purchase = $this->retur_purchase_model;
 
 		$this->load->model('retur_penjualan_model');
@@ -27,58 +28,58 @@ class Retur_penjualan extends MY_Controller {
 		if(isset($_GET['search'])){
 			$filter = '';
 			if(!empty($_GET['id']) && $_GET['id'] != ''){
-				$filter['sales_transaction.id LIKE'] = "%".$_GET['id']."%";
+				$filter['purchase_transaction.id LIKE'] = "%".$_GET['id']."%";
 			}
 
 			if(!empty($_GET['date_from']) && $_GET['date_from'] != ''){
-				$filter['DATE(sales_transaction.date) >='] = $_GET['date_from'];
+				$filter['DATE(purchase_transaction.date) >='] = $_GET['date_from'];
 			}
 
 			if(!empty($_GET['date_end']) && $_GET['date_end'] != ''){
-				$filter['DATE(sales_transaction.date) <='] = $_GET['date_end'];
+				$filter['DATE(purchase_transaction.date) <='] = $_GET['date_end'];
 			}
 
-			$total_row = $this->penjualan->count_total_filter($filter);
-			$data['penjualans'] = $this->penjualan->get_filter($filter,url_param());
+			$total_row = $this->retur_purchase->count_total_filter($filter);
+			$data['penjualans'] = $this->retur_purchase->get_filter($filter,url_param());
 		}else{
-			$total_row = $this->penjualan->count_total();
-			$data['penjualans'] = $this->penjualan->get_all(url_param());
+			$total_row = $this->retur_purchase->count_total();
+			$data['penjualans'] = $this->retur_purchase->get_all(url_param());
 		}
 		$data['paggination'] = get_paggination($total_row,get_search());
-		$this->load->view('retur_penjualan/index',$data);
+		$this->load->view('retur_purchase/index',$data);
 	}
 	
 	function create(){
 		if(isset($_GET['search'])){
 			$filter = '';
 			if(!empty($_GET['id']) && $_GET['id'] != ''){
-				$filter['sales_transaction.id LIKE'] = "%".$_GET['id']."%";
+				$filter['purchase_transaction.id LIKE'] = "%".$_GET['id']."%";
 			}
 
 			if(!empty($_GET['date_from']) && $_GET['date_from'] != ''){
-				$filter['DATE(sales_transaction.date) >='] = $_GET['date_from'];
+				$filter['DATE(purchase_transaction.date) >='] = $_GET['date_from'];
 			}
 
 			if(!empty($_GET['date_end']) && $_GET['date_end'] != ''){
-				$filter['DATE(sales_transaction.date) <='] = $_GET['date_end'];
+				$filter['DATE(purchase_transaction.date) <='] = $_GET['date_end'];
 			}
 
-			$total_row = $this->penjualan_model->count_total_filter($filter);
-			$data['penjualans'] = $this->penjualan_model->get_filter($filter,url_param());
+			$total_row = $this->transaksi_model->count_total_filter($filter);
+			$data['penjualans'] = $this->transaksi_model->get_filter($filter,url_param());
 		}else{
-			$total_row = $this->penjualan_model->count_total();
-			$data['penjualans'] = $this->penjualan_model->get_all(url_param());
+			$total_row = $this->transaksi_model->count_total();
+			$data['penjualans'] = $this->transaksi_model->get_all(url_param());
 		}
 		$data['retur'] = true;
 		$data['paggination'] = get_paggination($total_row,get_search());
-		$this->load->view('retur_penjualan/retur_index',$data);
+		$this->load->view('retur_purchase/retur_index',$data);
 	}
 
 	function create_retur($id){
 		// destry cart
 		$this->cart->destroy();
 
-		$details = $this->penjualan_model->get_detail($id);
+		$details = $this->transaksi_model->get_detail($id);
 		if(!$details){
 			redirect(site_url());
 		}
@@ -86,11 +87,11 @@ class Retur_penjualan extends MY_Controller {
 		//print_r($cart_data); exit;
 		$data['carts'] = $cart_data;
 		$data['code_penjualan'] = $id;
-		$data['code_retur_penjualan'] = "RETS".strtotime(date("Y-m-d H:i:s"));
+		$data['code_retur_penjualan'] = "RETP".strtotime(date("Y-m-d H:i:s"));
 		$data['customers'] = $this->pelanggan_model->get_all();
 		$data['kategoris'] = $this->kategori_model->get_all();
 		$data['details'] = $details;
-		$this->load->view('retur_penjualan/form',$data);
+		$this->load->view('retur_purchase/form',$data);
 	}
 	
 	public function detail($id){
@@ -195,7 +196,6 @@ class Retur_penjualan extends MY_Controller {
 	}
 
 	public function add_process(){
-
 		$this->form_validation->set_rules('retur_id', 'retur_id', 'required');
 		$this->form_validation->set_rules('retur_code', 'retur_code', 'required');
 		$this->form_validation->set_rules('retur_date', 'retur_date', 'required');
@@ -204,13 +204,13 @@ class Retur_penjualan extends MY_Controller {
 
 		if($this->form_validation->run() != FALSE && !empty($carts) && is_array($carts)){
 			$data['id'] = escape($this->input->post('retur_id'));
-			$data['sales_id'] = escape($this->input->post('retur_code'));
+			$data['sales_retur_id'] = escape($this->input->post('retur_code'));
 			$data['total_price'] = $this->cart->total();
 			$data['total_item'] = $this->cart->total_items();
 			$data['is_return'] = "0";
 			$data['date'] = escape($this->input->post('retur_date'));
 
-			$this->retur_penjualan_model->insert($data);
+			$this->retur_purchase->insert($data);
 			if($data['id']){
 				$this->_insert_purchase_data($data['id'],$carts);
 			}
@@ -224,27 +224,34 @@ class Retur_penjualan extends MY_Controller {
 		// destry cart
 		$this->cart->destroy();
 
-		$details = $this->penjualan->get_detail($retur_id);
-
-		if(!$details || $details[0]->is_return == 1){
-			redirect(site_url('retur_penjualan'));
+		$details = $this->retur_purchase->get_detail_by_id($retur_id);
+		$details_sales = $this->retur_purchase->get_detail_by_sales_id($retur_id);
+		if((!$details || $details[0]->is_return == 1) && (!$details_sales || $details_sales[0]->is_return == 1)){
+			redirect(site_url('retur_purchase'));
+		}
+		if(!$details){
+			$details = $details_sales;
 		}
 		$cart_data = $this->_process_cart($details);
-		//print_r($cart_data); exit;
+		//print_r($this->db); exit;
 		$data['edit'] = true;
 		$data['carts'] = $cart_data;
-		$data['code_penjualan'] = $details[0]->sales_id;
+		$data['code_penjualan'] = $details[0]->sales_retur_id;
 		$data['code_retur_penjualan'] = $details[0]->id;
 		$data['date'] = $details[0]->date;
 		$data['details'] = $details;
-		$this->load->view('retur_penjualan/form',$data);
+		$this->load->view('retur_purchase/form',$data);
 	}
 
 	public function update($retur_id){
-		$details = $this->penjualan->get_detail_by_id($retur_id);
+		$details = $this->retur_purchase->get_detail_by_id($retur_id);
+		$details_sales = $this->retur_purchase->get_detail_by_sales_id($retur_id);
+
+		if((!$details || $details[0]->is_return == 1) && (!$details_sales || $details_sales[0]->is_return == 1)){
+			redirect(site_url('retur_purchase'));
+		}
 		if(!$details){
-			redirect(site_url());
-			exit;
+			$details = $details_sales;
 		}
 
 		$carts =  $this->cart->contents();
@@ -253,7 +260,11 @@ class Retur_penjualan extends MY_Controller {
 		if(!empty($carts) && is_array($carts) && $check_qty){
 			// Delete Row on sales_data table
 			foreach($details as $detail){
-				$this->penjualan->delete_data($detail->sales_id);
+				if($details_sales){
+					$this->retur_purchase->delete_data_sales($detail->sales_retur_id);
+				}else{
+					$this->retur_purchase->delete_data($detail->id);
+				}
 			}
 
 			$data['id'] = $retur_id;
@@ -262,23 +273,12 @@ class Retur_penjualan extends MY_Controller {
 			$data['is_return'] = ($is_return != "undefined") ? (int)$is_return : "0";
 
 			$is_return_old = $details[0]->is_return;
-			$this->penjualan->update($retur_id,$data);
-			if($is_return == "1" && $is_return_old != 1){
+			$this->retur_purchase->update($retur_id,$data);
+			if($is_return == "1" && $is_return_old != 1 && strpos($retur_id, "RETS") !== false){
 				// Update product and retur purchase
 				foreach($carts as $cart){
-					$this->produk_model->update_qty_min($cart['id'],array('product_qty' => $cart['qty']));
+					$this->produk_model->update_qty_add($cart['id'],array('product_qty' => $cart['qty']));
 				}
-
-				// purchase_retur
-				$retur_p['id'] = "RETP".strtotime(date("Y-m-d H:i:s"));
-				$retur_p['sales_retur_id'] = $retur_id;
-				$retur_p['total_price'] = $this->cart->total();
-				$retur_p['total_item'] = $this->cart->total_items();
-				$retur_p['is_return'] = "0";
-				$retur_p['return_by'] = "1";
-				$this->retur_purchase->insert($retur_p);
-
-				$this->retur_purchase->insert_retur_carts($retur_p['id'],$carts);
 			}
 			
 			if($data['id']){
@@ -307,49 +307,42 @@ class Retur_penjualan extends MY_Controller {
 		}
 		return $result;
 	}
-	/*private function _check_qty($carts){
-		$status = false;
-		foreach($carts as $key => $cart){
-			$product = $this->produk_model->get_by_id($cart['id']);
-			if($cart['qty'] > $product[0]['product_qty']){
-				$status = true;
-				break;
-			}
-		}
-		return $status;
-	}*/
+
 	private function _insert_purchase_data($sales_id,$carts){
 		foreach($carts as $key => $cart){
 			$purchase_data = array(
-				'sales_id' => $sales_id,
+				'transaction_id' => $sales_id,
 				'product_id' => $cart['id'],
 				'category_id' => $cart['category_id'],
 				'quantity' => $cart['qty'],
 				'price_item' => $cart['price'],
 				'subtotal' => $cart['subtotal']
 			);
-			$this->penjualan_model->insert_purchase_data($purchase_data);
+			$this->transaksi_model->insert_purchase_data($purchase_data);
 
-			$this->produk_model->update_qty_min($cart['id'],array('product_qty' => $cart['qty']));
+			//$this->produk_model->update_qty_min($cart['id'],array('product_qty' => $cart['qty']));
 		}
 		$this->cart->destroy();
 	}
 	public function delete($retur_id){
-		$details = $this->penjualan->get_detail_by_id($retur_id);
+		$details = $this->retur_purchase->get_detail_by_id($retur_id);
+		$details_sales = $this->retur_purchase->get_detail_by_sales_id($retur_id);
 
+		if((!$details || $details[0]->is_return == 1) && (!$details_sales || $details_sales[0]->is_return == 1)){
+			redirect(site_url('retur_purchase'));
+		}
 		if(!$details){
-			redirect(site_url());
-			exit;
+			$details = $details_sales;
 		}
 
 		// Delete Row on sales_data table
 		foreach($details as $detail){
-			$this->penjualan->delete_data($detail->sales_id);
+			$this->retur_purchase->delete_data($detail->sales_id);
 		}
-		$this->penjualan->delete($retur_id);
-		redirect(site_url('retur_penjualan'));
+		$this->retur_purchase->delete($retur_id);
+		redirect(site_url('retur_purchase'));
 	}
 	public function export_csv(){
-		$data = $this->penjualan->get_filter('',url_param(),true);
+		$data = $this->retur_purchase->get_filter('',url_param(),true);
 	}
 }

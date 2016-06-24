@@ -17,7 +17,7 @@
 		<!-- Bootstrap 3.3.6 -->
 		<script src="<?php echo base_url('public');?>/bootstrap/js/bootstrap.min.js"></script>
 		<!-- Morris.js charts -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+		<script src="<?php echo base_url('public');?>/plugins/raphael/raphael-min.js"></script>
 		<!-- script src="<?php echo base_url('public');?>/plugins/morris/morris.min.js"></script -->
 		<!-- Sparkline -->
 		<script src="<?php echo base_url('public');?>/plugins/sparkline/jquery.sparkline.min.js"></script>
@@ -27,7 +27,7 @@
 		<!-- jQuery Knob Chart -->
 		<script src="<?php echo base_url('public');?>/plugins/knob/jquery.knob.js"></script>
 		<!-- daterangepicker -->
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
+		<script src="<?php echo base_url('public');?>/plugins/moment/moment.min.js"></script>
 		<script src="<?php echo base_url('public');?>/plugins/daterangepicker/daterangepicker.js"></script>
 		<!-- datepicker -->
 		<script src="<?php echo base_url('public');?>/plugins/datepicker/bootstrap-datepicker.js"></script>

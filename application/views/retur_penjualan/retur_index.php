@@ -83,16 +83,6 @@
                   <?php } ?>
                 <?php } ?>
                 </tbody>
-                <tfoot>
-                <tr>
-                  <th>Code ID</th>
-                  <th>Customer Name</th>
-                  <th>Total Item</th>
-                  <th>Total Harga</th>
-                  <th>Date</th>
-                  <th>Action</th>
-                </tr>
-                </tfoot>
               </table>
             </div>
             <!-- /.box-body -->

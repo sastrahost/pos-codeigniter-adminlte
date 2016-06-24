@@ -4,8 +4,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Transaksi Retur Penjualan Form
-        <small>List Retur Penjualan</small>
+        Transaksi Retur Purchase Form
+        <small>List Retur Purchase</small>
       </h1>
     </section>
 
@@ -15,12 +15,12 @@
       <div class="row">
         <div class="col-xs-12">
           <ul class="nav nav-tabs">
-            <li role="presentation" class="active"><a href="<?php echo site_url('retur_penjualan/create');?>">Input Retur Penjualan</a></li>
-            <li role="presentation"><a href="<?php echo site_url('retur_penjualan');?>">List Retur Penjualan</a></li>
+            <li role="presentation" class="active"><a href="<?php echo site_url('retur_purchase/create');?>">Input Retur Purchase</a></li>
+            <li role="presentation"><a href="<?php echo site_url('retur_purchase');?>">List Retur Purchase</a></li>
           </ul>
 		  <div class="box box-info">
             <div class="box-header with-border">
-              <h3 class="box-title">Retur Penjualan</h3>
+              <h3 class="box-title">Retur Purchase</h3>
               <?php if($this->session->flashdata('form_false')){?>
                 <div class="alert alert-danger text-center">
                   <strong><?php echo $this->session->flashdata('form_false');?></strong>
@@ -30,21 +30,21 @@
             <!-- /.box-header -->
             <!-- form start -->
             <?php if(!empty($edit) && $edit){?>
-            <form id="transaction-form" class="form-horizontal" method="POST" action="<?php echo site_url('retur_penjualan/update').'/'.$code_retur_penjualan;?>">
+            <form id="transaction-form" class="form-horizontal" method="POST" action="<?php echo site_url('retur_purchase/update').'/'.$code_retur_penjualan;?>">
             <?php }else{?>
-            <form id="transaction-form" class="form-horizontal" method="POST" action="<?php echo site_url('retur_penjualan/add_process');?>">
+            <form id="transaction-form" class="form-horizontal" method="POST" action="<?php echo site_url('retur_purchase/add_process');?>">
             <?php } ?>
               <div class="box-body">
                 <div class="col-md-6">
                   <div class="form-group">
-                    <label class="col-sm-4 control-label" for="kode">Kode Retur Penjualan</label>
+                    <label class="col-sm-4 control-label" for="kode">Kode Retur Purchase</label>
                     <div class="col-sm-8">
                       <input type="text" name="id" value="<?php echo !empty($code_retur_penjualan) ? $code_retur_penjualan : '';?>" class="form-control" disabled/>
                       <input type="hidden" name="retur_id" id="retur_id" value="<?php echo !empty($code_retur_penjualan) ? $code_retur_penjualan : '';?>"/>
                     </div>
                   </div>
                   <div class="form-group">
-                    <label class="col-sm-4 control-label" for="kode">Kode Penjualan</label>
+                    <label class="col-sm-4 control-label" for="kode">Kode Purchase TRX</label>
                      <div class="col-sm-8">
                        <input type="text" name="id" value="<?php echo !empty($code_penjualan) ? $code_penjualan : '';?>" class="form-control" disabled/>
                        <input type="hidden" name="retur_code" id="retur_code" value="<?php echo !empty($code_penjualan) ? $code_penjualan : '';?>"/>
@@ -90,7 +90,7 @@
                               <tr id="<?php echo $k;?>" class="cart-value">
                                 <td><?php echo $cart['category_name'];?></td>
                                 <td><?php echo $cart['name'];?></td>
-                                <td><input type="number" row-id="<?php echo $k;?>" class="retur_penjualan_qty" value="<?php echo $cart['qty'];?>" max="<?php echo $cart['qty'];?>" min="1"/></td>
+                                <td><input type="number" row-id="<?php echo $k;?>" class="retur_purchase_qty" value="<?php echo $cart['qty'];?>" max="<?php echo $cart['qty'];?>" min="1"/></td>
                                 <td>Rp<?php echo number_format($cart['price']);?></td>
                                 <td><span class="btn btn-danger btn-sm transaksi-delete-item" data-cart="<?php echo $k;?>">x</span></td>
                               </tr>
@@ -110,7 +110,7 @@
               <!-- /.box-body -->
               <div class="box-footer">
                 <div class="col-md-3 col-md-offset-4">
-                  <a class="btn btn-default" href="<?php echo site_url('penjualan');?>">Cancel</a>
+                  <a class="btn btn-default" href="<?php echo site_url('retur_purchase');?>">Cancel</a>
                   <a class="btn btn-info pull-right" href="#" id="submit-transaksi">Submit</a>
                 </div>
               </div>

@@ -4,8 +4,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Transaksi Retur Penjualan
-        <small>List Retur Transaksi</small>
+        Transaksi Retur Purchase
+        <small>List Retur Purchase</small>
       </h1>
     </section>
 
@@ -14,21 +14,21 @@
       <div class="row">
         <div class="col-xs-12">
           <ul class="nav nav-tabs">
-            <li role="presentation"><a href="<?php echo site_url('retur_penjualan/create');?>">Input Retur Penjualan</a></li>
-            <li role="presentation" class="active"><a href="<?php echo site_url('retur_penjualan');?>">List Retur Penjualan</a></li>
+            <li role="presentation"><a href="<?php echo site_url('retur_purchase/create');?>">Input Retur Purchase</a></li>
+            <li role="presentation" class="active"><a href="<?php echo site_url('retur_purchase');?>">List Retur Purchase</a></li>
           </ul>
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Data Table Penjualan</h3>
+              <h3 class="box-title">Data Table Retur Purchase</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <form action="<?php echo site_url('retur_penjualan?search=true');?>" method="GET">
+              <form action="<?php echo site_url('retur_purchase?search=true');?>" method="GET">
                 <input type="hidden" class="form-control" name="search" value="true"/>
                 <div class="box-body pad">
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label for="id">Code Penjualan</label>
+                      <label for="id">Code Purchase</label>
                       <input type="text" class="form-control" name="id" value="<?php echo !empty($_GET['id']) ? $_GET['id'] : '';?>"/>
                     </div>
                   </div>
@@ -66,7 +66,7 @@
                 <thead>
                 <tr>
                   <th>Retur ID</th>
-                  <th>Sales TRX ID</th>
+                  <th>Sales Retur ID</th>
                   <th>Total Item</th>
                   <th>Total Harga</th>
                   <th>Pengembalian Barang</th>
@@ -80,8 +80,8 @@
 						<tr>
 						  <td><?php echo $penjualan->id;?></td>
 						  <td>
-							<?php echo $penjualan->sales_id;?>
-							<a target="_blank" href="<?php echo site_url('penjualan/detail').'/'.$penjualan->sales_id;?>" class="btn btn-xs btn-primary">
+							<?php echo $penjualan->sales_retur_id;?>
+							<a target="_blank" href="<?php echo site_url('transaksi/detail').'/'.$penjualan->sales_retur_id;?>" class="btn btn-xs btn-primary">
 							  detail
 							</a>
 						  </td>
@@ -91,12 +91,12 @@
 						  <td><?php echo $penjualan->date;?></td>
 						  <td>
 							<?php if($penjualan->is_return == 0){?>
-								<a href="<?php echo site_url('retur_penjualan/edit').'/'.$penjualan->id;?>" class="btn btn-xs btn-default">Edit</a>
+								<a href="<?php echo site_url('retur_purchase/edit').'/'.$penjualan->id;?>" class="btn btn-xs btn-default">Edit</a>
 							<?php }else{ ?>
 								<span class="btn-xs btn-success">Complete</span>		
 							<?php } ?>
 							
-							<a onclick="return confirm('Are you sure you want to delete this penjualan?');" href="<?php echo site_url('retur_penjualan/delete').'/'.$penjualan->id;?>" class="btn btn-xs btn-danger">Delete</a>
+							<a onclick="return confirm('Are you sure you want to delete this retur purchase?');" href="<?php echo site_url('retur_purchase/delete').'/'.$penjualan->id;?>" class="btn btn-xs btn-danger">Delete</a>
 						  </td>
 						</tr>
                   <?php } ?>
