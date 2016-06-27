@@ -97,36 +97,8 @@ class Retur_penjualan_model extends CI_Model {
 		}
 		return $query->num_rows();
 	}
-	public function insert_purchase_data($data){
-		$this->db->insert('sales_data', $data);
-	}
-	public function delete_purchase_data_trx($transaction_id){
-		$this->db->delete('sales_data', array('sales_id' => $transaction_id));
-	}
-
-	/*
-	 * Tunggakan Disini
-	 */
-	public function count_total_filter_tunggakan($filter = array()){
-		$filter['is_cash'] = 0;
-		$query = $this->db->get_where($this->table,$filter);
-		return $query->num_rows();
-	}
-	public function get_filter_tunggakan($filter = '',$limit_offset = array(),$is_array = false){
-		$filter['is_cash'] = 0;
-		$this->db->select($this->select_default);
-		$this->db->join('customer', 'customer.id = sales_transaction.customer_id', 'left');
-		$this->db->where($filter);
-		if($limit_offset){
-			$this->db->limit($limit_offset['limit'],$limit_offset['offset']);
-		}
-		$query = $this->db->get($this->table);
-
-		if($is_array){
-			$resopnse = $query->result_array();
-		}else{
-			$resopnse = $query->result();
-		}
-		return $resopnse;
+	public function get_all_not_returned(){
+		$query = $this->db->get_where($this->table,array("is_return" => "0"));
+		return $query->result();
 	}
 }

@@ -95,12 +95,12 @@ class Retur_purchase extends MY_Controller {
 	}
 	
 	public function detail($id){
-		$details = $this->penjualan_model->get_detail($id);
+		$details = $this->retur_purchase->get_detail_by_id($id);
 		if($details){
 			$data['details'] = $details;
-			$this->load->view('penjualan/detail',$data);
+			$this->load->view('retur_purchase/detail',$data);
 		}else{
-			redirect(site_url('penjualan'));
+			redirect(site_url('retur_purchase'));
 		}
 	}
 

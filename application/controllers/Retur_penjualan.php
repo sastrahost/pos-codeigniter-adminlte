@@ -94,12 +94,13 @@ class Retur_penjualan extends MY_Controller {
 	}
 	
 	public function detail($id){
-		$details = $this->penjualan_model->get_detail($id);
+		$details = $this->penjualan->get_detail_by_id($id);
+		//print_r($details); exit;
 		if($details){
 			$data['details'] = $details;
-			$this->load->view('penjualan/detail',$data);
+			$this->load->view('retur_penjualan/detail',$data);
 		}else{
-			redirect(site_url('penjualan'));
+			redirect(site_url('retur_penjualan'));
 		}
 	}
 

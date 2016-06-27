@@ -60,12 +60,12 @@ class Retur_purchase_model extends CI_Model {
 	public function delete_data_sales($sales_id){
 		$this->db->delete("sales_data", array('sales_id' => $sales_id));
 	}
-	public function get_detail($sales_id){
+	public function get_detail($retur_id){
 		$sql = "SELECT *, purchase_retur.id AS id, product.id as product_id FROM purchase_retur 
 				JOIN purchase_data ON purchase_retur.id = purchase_data.transaction_id 
 				JOIN product ON product.id = purchase_data.product_id 
 				JOIN category ON category.id = purchase_data.category_id 
-				WHERE purchase_retur.sales_retur_id = '".$sales_id."'";
+				WHERE purchase_retur.sales_retur_id = '".$retur_id."'";
 		$query = $this->db->query($sql);
 		return $query->result();
 	}
