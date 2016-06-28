@@ -18,7 +18,7 @@
 		<div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon"><i class="fa fa-cart"></i></span>
+            <span class="info-box-icon"><i class="fa fa-cart-arrow-down"></i></span>
             <div class="info-box-content">
               <span class="info-box-text">Supplier</span>
               <span class="info-box-number"><?php echo $suppliers;?></span>
@@ -30,7 +30,7 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-red"><i class="fa fa-google-plus"></i></span>
+            <span class="info-box-icon bg-red"><i class="fa fa-users"></i></span>
 
             <div class="info-box-content">
               <span class="info-box-text">Customer</span>
@@ -47,7 +47,7 @@
 
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-green"><i class="ion ion-ios-cart-outline"></i></span>
+            <span class="info-box-icon bg-green"><i class="fa fa-file"></i></span>
 
             <div class="info-box-content">
               <span class="info-box-text">Produk</span>
@@ -60,7 +60,7 @@
         <!-- /.col -->
         <div class="col-md-3 col-sm-6 col-xs-12">
           <div class="info-box">
-            <span class="info-box-icon bg-yellow"><i class="ion ion-ios-people-outline"></i></span>
+            <span class="info-box-icon bg-yellow"><i class="fa fa-bars"></i></span>
 
             <div class="info-box-content">
               <span class="info-box-text">Category</span>
@@ -139,21 +139,21 @@
                 <!-- /.col -->
                 <div class="col-md-4">
 				  <div class="info-box bg-yellow">
-					<span class="info-box-icon"><i class="ion ion-ios-pricetag-outline"></i></span>
+					<span class="info-box-icon"><i class="fa fa-shopping-bag"></i></span>
 					<div class="info-box-content">
 					  <span class="info-box-text">TRX Penjualan Harian</span>
 					  <span class="info-box-number"><?php echo count($penjualan_harian);?></span>
 					</div>
 				  </div>
 				  <div class="info-box bg-yellow">
-					<span class="info-box-icon"><i class="ion ion-ios-pricetag-outline"></i></span>
+					<span class="info-box-icon"><i class="fa fa-shopping-basket"></i></span>
 					<div class="info-box-content">
 					  <span class="info-box-text">TRX Penjualan Bulanan</span>
 					  <span class="info-box-number"><?php echo count($penjualan_bulanan);?></span>
 					</div>
 				  </div>
 				  <div class="info-box bg-yellow">
-					<span class="info-box-icon"><i class="ion ion-ios-pricetag-outline"></i></span>
+					<span class="info-box-icon"><i class="fa fa-exchange"></i></span>
 					<div class="info-box-content">
 					  <span class="info-box-text">Retur Penjualan</span>
 					  <span class="info-box-number"><?php echo count($sales_retur);?></span>

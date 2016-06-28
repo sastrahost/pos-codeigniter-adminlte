@@ -249,4 +249,14 @@ class Penjualan extends MY_Controller {
 		$data = $this->penjualan_model->get_filter('',url_param(),true);
 		$this->csv_library->export('sales.csv',$data);
 	}
+	public function print_now($id = ""){
+		$details = $this->penjualan_model->get_detail($id);
+		if($details){
+			$data['details'] = $details;
+			$this->load->view("penjualan/print",$data);
+			//$this->load->view('penjualan/detail',$data);
+		}else{
+			redirect(site_url('penjualan'));
+		}
+	}
 }
