@@ -330,6 +330,9 @@ var $el = $("body");
         }
         return data;
     }
+    $(document).ready(function() {
+        $(".btnPrint").printPage();
+    });
 })(this.jQuery);
 
 function price(input){

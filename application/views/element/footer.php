@@ -46,6 +46,7 @@
 		<!-- iCheck -->
 		<script src="<?php echo base_url('public');?>/plugins/iCheck/icheck.min.js"></script>
 		<script src="<?php echo base_url('public');?>/js/fa-loading.js"></script>
+		<script src="<?php echo base_url('public');?>/js/jquery.printPage.js"></script>
 		<!-- main JS -->
 		<script src="<?php echo base_url('public');?>/js/main.js"></script>
 		<script>

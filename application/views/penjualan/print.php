@@ -1,26 +1,29 @@
-<style>
-    @media print {
-        html, body {
-            width: 5.5in; /* was 8.5in */
-            height: 8.5in; /* was 5.5in */
-            display: block;
-            font-family: "Calibri";
-            /*font-size: auto; NOT A VALID PROPERTY */
-        }
-        table{
-            width:100%;
-            display:inline;
-        }
-
-        @page {
-            size: 5.5in 8.5in /* . Random dot? */;
-        }
-        .box-body{
-            width:100%;
-        }
-    }
-</style>
 <html>
+<head>
+    <meta charset="ISO-8859-1">
+    <style>
+        @media print {
+            html, body {
+                width: 5.5in; /* was 8.5in */
+                height: 8.5in; /* was 5.5in */
+                display: block;
+                font-family: "Calibri";
+                /*font-size: auto; NOT A VALID PROPERTY */
+            }
+            table{
+                width:100%;
+                display:inline;
+            }
+
+            @page {
+                size: 5.5in 8.5in /* . Random dot? */;
+            }
+            .box-body{
+                width:100%;
+            }
+        }
+    </style>
+</head>
 <body>
     <div class="box-body">
         <table style="display:inline;">
@@ -51,7 +54,8 @@
         </table>
         <br />
         <br />
-        ===========================================================================
+        <?php $line = "=============================================================";?>
+        <?php echo $line;?>
         <table>
             <thead>
             <tr>
@@ -63,7 +67,7 @@
             </tr>
             </thead>
         </table>
-        ===========================================================================
+        <?php echo $line;?>
         <table>
             <thead>
             <?php if(isset($details) && is_array($details)){ ?>
@@ -79,7 +83,7 @@
             <?php } ?>
             </thead>
         </table>
-        ===========================================================================
+        <?php echo $line;?>
         <table>
             <thead>
             <tr>
@@ -91,7 +95,7 @@
             </tr>
             </thead>
         </table>
-        ===========================================================================
+        <?php echo $line;?>
         <br />
         <table>
             <thead>

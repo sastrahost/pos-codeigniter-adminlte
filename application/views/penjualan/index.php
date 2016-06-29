@@ -84,6 +84,7 @@
                       <td><?php echo $penjualan->date;?></td>
                       <td>
                         <a href="<?php echo site_url('penjualan/detail').'/'.$penjualan->id;?>" class="btn btn-xs btn-default">Detail</a>
+                        <a href="<?php echo site_url('penjualan/print_now').'/'.$penjualan->id;?>" class="btn btn-xs btn-primary btnPrint">Print</a>
                         <a onclick="return confirm('Are you sure you want to delete this penjualan?');" href="<?php echo site_url('penjualan/delete').'/'.$penjualan->id;?>" class="btn btn-xs btn-danger">Delete</a>
                       </td>
                     </tr>

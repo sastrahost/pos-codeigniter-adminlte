@@ -22,6 +22,7 @@
                             <h3 class="box-title">Data Transaksi Detail <?php echo $details[0]->id;?></h3>
                             <div class="pull-right">
                                 <span><a href="<?php echo site_url('penjualan');?>" class="btn btn-sm btn-default">Back</a></span>
+                                <span><a href="<?php echo site_url('penjualan/print_now').'/'.$details[0]->id;?>" class="btn btn-sm btn-primary btnPrint"><i class="fa fa-print"></i> Print</a></span>
                             </div>
                         </div>
                         <!-- /.box-header -->
