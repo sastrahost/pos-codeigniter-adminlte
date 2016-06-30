@@ -2,6 +2,22 @@
 <head>
     <meta charset="ISO-8859-1">
     <style>
+
+        html, body {
+            width: 24cm; /* was 907px */
+            height: 14cm; /* was 529px */
+            display: block;
+            font-family: "Calibri";
+            padding:10px;
+            /*font-size: auto; NOT A VALID PROPERTY */
+        }
+        table{
+            width:100%;
+            display:inline;
+        }
+        .box-body{
+            width:100%;
+        }
         @media print {
             html, body {
                 width: 24cm; /* was 8.5in */
@@ -30,9 +46,9 @@
         <table style="display:inline;">
             <thead>
                 <tr>
-                    <td style="width:342px;">Kepada Yth:</td>
-                    <td style="width:150px;">Kode Transaksi</td>
-                    <td style="width:192px;">: <?php echo $details[0]->id;?></td>
+                    <td style="width:500px;">Kepada Yth:</td>
+                    <td style="width:200px;">Kode Transaksi</td>
+                    <td style="width:200px;">: <?php echo $details[0]->id;?></td>
                 </tr>
             </thead>
             <tbody>
@@ -55,30 +71,40 @@
         </table>
         <br />
         <br />
-        <?php $line = "=============================================================";?>
+        <?php $line = "==================================================================================================================";?>
         <?php echo $line;?>
         <table>
             <thead>
             <tr>
-                <td style="width:136px;">No</td>
-                <td style="width:136px;">Category</td>
-                <td style="width:136px;">Quantity</td>
-                <td style="width:136px;">Price/item</td>
-                <td style="width:136px;">Subtotal</td>
+                <td style="width:181px;">No</td>
+                <td style="width:178px;">Category</td>
+                <td style="width:178px;">Quantity</td>
+                <td style="width:178px;">Price/item</td>
+                <td style="width:182px;text-align: right;">Subtotal</td>
             </tr>
             </thead>
         </table>
         <?php echo $line;?>
         <table>
-            <thead>
+            <thead  style="height:270px;">
             <?php if(isset($details) && is_array($details)){ ?>
-                <?php foreach($details as $transaksi){?>
+                <?php foreach($details as $key => $transaksi){?>
+                    <tr valign="top" style="height:10px;">
+                        <td style="width:181px;"><?php echo $transaksi->product_name;?></td>
+                        <td style="width:178px;"><?php echo $transaksi->category_name;?></td>
+                        <td style="width:178px;"><?php echo $transaksi->quantity;?></td>
+                        <td style="width:178px;">Rp<?php echo number_format($transaksi->price_item);?></td>
+                        <td style="width:182px;text-align: right;">Rp<?php echo number_format($transaksi->subtotal);?></td>
+                    </tr>
+                <?php } ?>
+                <?php $total = 10 - ($key + 1);
+                for($a =1; $a <= $total; $a++){ ?>
                     <tr>
-                        <td style="width:136px;"><?php echo $transaksi->product_name;?></td>
-                        <td style="width:136px;"><?php echo $transaksi->category_name;?></td>
-                        <td style="width:136px;"><?php echo $transaksi->quantity;?></td>
-                        <td style="width:136px;">Rp<?php echo number_format($transaksi->price_item);?></td>
-                        <td style="width:136px;">Rp<?php echo number_format($transaksi->subtotal);?></td>
+                        <td style="width:181px;">&nbsp;</td>
+                        <td style="width:178px;"></td>
+                        <td style="width:178px;"></td>
+                        <td style="width:178px;"></td>
+                        <td style="width:182px;"></td>
                     </tr>
                 <?php } ?>
             <?php } ?>
@@ -88,11 +114,11 @@
         <table>
             <thead>
             <tr>
-                <td style="width:136px;"></td>
-                <td style="width:136px;"></td>
-                <td style="width:136px;"></td>
-                <td style="width:136px;">Total</td>
-                <td style="width:136px;">Rp<?php echo number_format($transaksi->total_price);?></td>
+                <td style="width:181px;"></td>
+                <td style="width:178px;"></td>
+                <td style="width:178px;"></td>
+                <td style="width:178px;">Total</td>
+                <td style="width:182px;text-align: right;">Rp<?php echo number_format($transaksi->total_price);?></td>
             </tr>
             </thead>
         </table>
@@ -101,10 +127,10 @@
         <table>
             <thead>
             <tr>
-                <td style="width:100px;text-align: center;">Pembeli</td>
-                <td style="width:120px;text-align: center;">Pengantar</td>
-                <td style="width:150px;text-align: center;">Hormat Kami</td>
-                <td style="width:342px;text-align: center;">**Terimakasih**</td>
+                <td style="width:180px;text-align: center;">Pembeli</td>
+                <td style="width:180px;text-align: center;">Pengantar</td>
+                <td style="width:180px;text-align: center;">Hormat Kami</td>
+                <td style="width:350px;text-align: center;">**Terimakasih**</td>
             </tr>
             </thead>
             <tbody>
