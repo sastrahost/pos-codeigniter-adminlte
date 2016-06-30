@@ -4,10 +4,11 @@
     <style>
         @media print {
             html, body {
-                width: 5.5in; /* was 8.5in */
-                height: 8.5in; /* was 5.5in */
+                width: 24cm; /* was 8.5in */
+                height: 14cm; /* was 5.5in */
                 display: block;
                 font-family: "Calibri";
+                padding:10px;
                 /*font-size: auto; NOT A VALID PROPERTY */
             }
             table{
@@ -16,7 +17,7 @@
             }
 
             @page {
-                size: 5.5in 8.5in /* . Random dot? */;
+                size: 24cm 14cm /* . Random dot? */;
             }
             .box-body{
                 width:100%;
