@@ -68,6 +68,7 @@ class Produk extends MY_Controller {
 
         $data['id'] = escape($this->input->post('product_id'));
         $data['product_name'] = escape($this->input->post('product_name'));
+        $data['product_qty'] = escape($this->input->post('product_qty'));
         $data['category_id'] = escape($this->input->post('category_id'));
         $data['product_desc'] = escape($this->input->post('product_desc'));
         $data['sale_price'] = escape($this->input->post('sale_price'));

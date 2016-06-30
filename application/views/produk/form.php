@@ -83,7 +83,7 @@
                   <div class="form-group">
                     <label class="col-sm-2 control-label" for="address">Quantity</label>
                     <div class="col-sm-10">
-                      <input type="number" value="<?php echo !empty($produk) ? $produk['product_qty'] : '';?>" name="product_qty" placeholder="Quantity" id="qty" class="form-control" disabled/>
+                      <input type="number" value="<?php echo !empty($produk) ? $produk['product_qty'] : '';?>" name="product_qty" placeholder="Quantity" id="qty" class="form-control"/>
                     </div>
                   </div>
                   <div class="form-group">
