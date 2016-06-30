@@ -76,7 +76,7 @@
         <table>
             <thead>
             <tr>
-                <td style="width:181px;">No</td>
+                <td style="width:181px;">Name</td>
                 <td style="width:178px;">Category</td>
                 <td style="width:178px;">Quantity</td>
                 <td style="width:178px;">Price/item</td>
