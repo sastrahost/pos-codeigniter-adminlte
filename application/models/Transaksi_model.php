@@ -13,6 +13,7 @@ class Transaksi_model extends CI_Model {
 	public function get_all($limit_offset = array()){
 		$this->db->select($this->select_default);
 		$this->db->join('supplier', 'supplier.id = purchase_transaction.supplier_id', 'left');
+		$this->db->order_by("date", "desc");
 		if(!empty($limit_offset)){
 			$query = $this->db->get($this->table,$limit_offset['limit'],$limit_offset['offset']);
 		}else{
@@ -25,7 +26,7 @@ class Transaksi_model extends CI_Model {
 		return $query->num_rows();
 	}
 	public function get_all_array(){
-		$query = $this->db->get($this->table);
+		$query = $this->db->order_by("date", "desc")->get($this->table);
 		return $query->result_array();
 	}
 	public function get_last_id(){
@@ -66,6 +67,7 @@ class Transaksi_model extends CI_Model {
 	public function get_filter($filter = '',$limit_offset = array(),$is_array = false){
 		$this->db->select($this->select_default);
 		$this->db->join('supplier', 'supplier.id = purchase_transaction.supplier_id', 'left');
+		$this->db->order_by("date", "desc");
 		if(!empty($filter)){
 			$this->db->where($filter);
 			if($limit_offset){
@@ -83,9 +85,9 @@ class Transaksi_model extends CI_Model {
 	}
 	public function count_total_filter($filter = array()){
 		if(!empty($filter)){
-			$query = $this->db->get_where($this->table,$filter);
+			$query = $this->db->order_by("date", "desc")->get_where($this->table,$filter);
 		}else{
-			$query = $this->db->get($this->table);
+			$query = $this->db->order_by("date", "desc")->get($this->table);
 		}
 		return $query->num_rows();
 	}

@@ -71,7 +71,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-md-11 col-md-offset-1">
+                <div class="col-md-12">
                   <h3 class="content-title">Informasi Barang</h3>
                   <div class="content-process">
                     <table class="table">
@@ -81,6 +81,10 @@
                           <td>Nama Barang</td>
                           <td>Jumlah</td>
                           <td>Harga Beli Satuan</td>
+                          <td>Disc 1</td>
+                          <td>Disc 2</td>
+                          <td>Disc 3</td>
+                          <td>Harga Satuan Net</td>
                           <td>Input Barang</td>
                         </tr>
                       </thead>
@@ -107,10 +111,24 @@
                             <input type="number" id="jumlah" class="form-control" name="jumlah" min="1" value="1"/>
                           </td>
                           <td>
-                            <input type="number" class="form-control" id="sale_price" name="sale_price" placeholder="Harga" required/>
+                            <input type="text" class="form-control form-price-format discount-trx" data-attr="0" id="sale_price" name="sale_price" placeholder="Harga" required/>
+                          </td>
+
+                          <td>
+                            <input type="number" value="0" min="0" max="100" class="form-control discount-trx" data-attr="1" id="disc_1" name="disc_1" placeholder="Diskon 1" disabled/>
                           </td>
                           <td>
-                            <a href="#" class="btn btn-primary" id="tambah-barang">Input Barang</a>
+                            <input type="number" value="0" min="0" max="100" class="form-control discount-trx" data-attr="2" id="disc_2" name="disc_2" placeholder="Diskon 2" disabled/>
+                          </td>
+                          <td>
+                            <input type="number" value="0" min="0" max="100" class="form-control discount-trx" data-attr="3" id="disc_3" name="disc_3" placeholder="Diskon 3" disabled/>
+                          </td>
+                          <td>
+                            <input type="text" class="form-control" id="harga_satuan_net" name="harga_satuan_net" placeholder="Harga Satuan Net"/>
+                          </td>
+
+                          <td>
+                            <a href="#" class="btn btn-xs btn-primary" id="tambah-barang">Input Barang</a>
                           </td>
                         </tr>
                         <?php if(!empty($carts) && is_array($carts)){?>
@@ -127,8 +145,8 @@
                       </tbody>
                       <tfoot>
                         <tr>
-                          <td>Total Pembelian</td>
-                          <td id="total-pembelian"><?php echo !empty($carts) ? 'Rp'.number_format($carts['total_price']) : '';?></td>
+                          <th colspan="3">Total Pembelian</th>
+                          <th colspan="2" id="total-pembelian"><?php echo !empty($carts) ? 'Rp'.number_format($carts['total_price']) : '';?></th>
                         </tr>
                       </tfoot>
                     </table>

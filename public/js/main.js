@@ -132,6 +132,9 @@ var $el = $("body");
         var product_id = $("#transaksi_product_id").val();
         var quantity = $("#jumlah").val();
         var sale_price = $("#sale_price").val();
+        if($('#harga_satuan_net').length){
+            sale_price = $('#harga_satuan_net').unmask();
+        }
         if(product_id !== null && sale_price !== null){
             $.ajax({
                 url: $("base").attr("url") + 'transaksi/add_item',
@@ -148,16 +151,21 @@ var $el = $("body");
                     var res = $.parseJSON(data);
                     $(".cart-value").remove();
                     $.each(res.data, function(key,value) {
+                        var row_2 = "";
+                        if($('#harga_satuan_net').length){
+                            //row_2 = "colspan='2'";
+                        }
                         var display = '<tr class="cart-value" id="'+ key +'">' +
                                     '<td>'+ value.category_name +'</td>' +
                                     '<td>'+ value.name +'</td>' +
                                     '<td>'+ value.qty +'</td>' +
-                                    '<td>Rp'+ price(value.subtotal) +'</td>' +
+                                    '<th '+row_2+'>Rp'+ price(value.subtotal) +'</th>' +
                                     '<td><span class="btn btn-danger btn-sm transaksi-delete-item" data-cart="'+ key +'">x</span></td>' +
                                     '</tr>';
                         $("#transaksi-item tr:last").after(display);
                     });
                     $("#total-pembelian").text('Rp'+price(res.total_price));
+                    $("#transaksi-item").find("input[type=text], input[type=number]").val("0");
                     $el.faLoading(false);
                     console.log(res);
                 },
@@ -334,8 +342,54 @@ var $el = $("body");
     }
     $(document).ready(function() {
         $(".btnPrint").printPage();
+        $('.form-price-format').priceFormat({
+            prefix: 'Rp ',
+            centsSeparator: ',',
+            thousandsSeparator: '.',
+            centsLimit: 0
+        });
+        $('.discount-trx').bind("keyup change", function(e){
+            //e.preventDefault();
+            var next = parseInt($(this).attr('data-attr')) + 1;
+            var disc = parseInt($(this).val());
+            var disc_unmask = $(this).unmask();
+
+            if(disc > 100){
+                $(this).val("100");
+            }
+            if(disc > 0 || disc_unmask > 0){
+                $("#disc_"+next).prop('disabled', false);
+            }else{
+                if(next == 2){
+                    $("#disc_"+next).prop('disabled', true);
+                    $("#disc_"+(next+1)).prop('disabled', true);
+                }else{
+                    $("#disc_"+next).prop('disabled', true);
+                }
+            }
+            var sale_price = $("#sale_price").unmask();
+            var disc1 = $("#disc_1").val();
+            var disc2 = $("#disc_2").val();
+            var disc3 = $("#disc_3").val();
+            var final_price = count_discount(sale_price,disc1,disc2,disc3);
+            $("#harga_satuan_net").val("Rp "+price(final_price));
+            //$("#harga_satuan_net").val(final_price);
+        });
     });
 })(this.jQuery);
+
+function count_discount(val,disc1,disc2,disc3){
+    var disc_one = val * (disc1 / 100);
+    disc_one = val - disc_one;
+
+    var disc_two = disc_one * (disc2 / 100);
+    disc_two = disc_one - disc_two;
+
+    var disc_three= disc_two * (disc3 / 100);
+    disc_three = disc_two - disc_three;
+
+    return disc_three;
+}
 
 function price(input){
     return (input).formatMoney(0, ',', ',');

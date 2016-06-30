@@ -81,7 +81,7 @@
 						  <td><?php echo $penjualan->id;?></td>
 						  <td>
 							<?php echo $penjualan->sales_retur_id;?>
-							<a target="_blank" href="<?php echo site_url('transaksi/detail').'/'.$penjualan->sales_retur_id;?>" class="btn btn-xs btn-primary">
+							<a target="_blank" href="<?php echo strpos($penjualan->sales_retur_id,'RETS') === false ? site_url('transaksi/detail') : site_url('retur_penjualan/detail');?>/<?php echo $penjualan->sales_retur_id;?>" class="btn btn-xs btn-primary">
 							  detail
 							</a>
 						  </td>
@@ -90,9 +90,9 @@
 						  <td><?php echo $penjualan->is_return == 1 ? "Complete" : "Not Complete";?></td>
 						  <td><?php echo $penjualan->date;?></td>
 						  <td>
-								<a href="<?php echo site_url('retur_purchase/detail').'/'.$penjualan->id;?>" class="btn btn-xs btn-primary">Detail</a>
+								<a href="<?php echo site_url('retur_purchase/detail').'/'.$penjualan->id;?>" class="btn btn-xs btn-default">Detail</a>
 							<?php if($penjualan->is_return == 0){?>
-								<a href="<?php echo site_url('retur_purchase/edit').'/'.$penjualan->id;?>" class="btn btn-xs btn-success">Edit</a>
+								<a href="<?php echo site_url('retur_purchase/edit').'/'.$penjualan->id;?>" class="btn btn-xs btn-primary">Edit</a>
 							<?php }else{ ?>
 								<span class="btn-xs btn-success">Complete</span>		
 							<?php } ?>

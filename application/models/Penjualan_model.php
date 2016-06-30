@@ -102,19 +102,18 @@ class Penjualan_model extends CI_Model {
 	 */
 	public function count_total_filter_tunggakan($filter = array()){
 		$filter['is_cash'] = 0;
-		$query = $this->db->get_where($this->table,$filter);
+		$query = $this->db->order_by("date", "desc")->get_where($this->table,$filter);
 		return $query->num_rows();
 	}
 	public function get_filter_tunggakan($filter = '',$limit_offset = array(),$is_array = false){
 		$filter['is_cash'] = 0;
 		$this->db->select($this->select_default);
 		$this->db->join('customer', 'customer.id = sales_transaction.customer_id', 'left');
-		$this->db->order_by("date", "desc");
 		$this->db->where($filter);
 		if($limit_offset){
 			$this->db->limit($limit_offset['limit'],$limit_offset['offset']);
 		}
-		$query = $this->db->get($this->table);
+		$query = $this->db->order_by($this->table.".date", "desc")->get($this->table);
 
 		if($is_array){
 			$resopnse = $query->result_array();
