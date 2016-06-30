@@ -256,6 +256,7 @@ class Retur_purchase extends MY_Controller {
 
 		$carts =  $this->cart->contents();
 		$is_return = escape($this->input->post("is_return"));
+		$return_by = escape($this->input->post("return_by"));
 		$check_qty = $this->_check_qty($carts);
 		if(!empty($carts) && is_array($carts) && $check_qty){
 			// Delete Row on sales_data table
@@ -271,10 +272,11 @@ class Retur_purchase extends MY_Controller {
 			$data['total_price'] = $this->cart->total();
 			$data['total_item'] = $this->cart->total_items();
 			$data['is_return'] = ($is_return != "undefined") ? (int)$is_return : "0";
+			$data['return_by'] = ($return_by != "undefined") ? (int)$return_by : "0";
 
 			$is_return_old = $details[0]->is_return;
 			$this->retur_purchase->update($retur_id,$data);
-			if($is_return == "1" && $is_return_old != 1 && strpos($retur_id, "RETS") !== false){
+			if($is_return == "1" && $is_return_old != 1 && strpos($details[0]->sales_retur_id, "RETS") !== false && $return_by == 1){
 				// Update product and retur purchase
 				foreach($carts as $cart){
 					$this->produk_model->update_qty_add($cart['id'],array('product_qty' => $cart['qty']));
@@ -327,6 +329,8 @@ class Retur_purchase extends MY_Controller {
 	public function delete($retur_id){
 		$details = $this->retur_purchase->get_detail_by_id($retur_id);
 		$details_sales = $this->retur_purchase->get_detail_by_sales_id($retur_id);
+
+		$this->retur_purchase->delete($retur_id);
 
 		if((!$details || $details[0]->is_return == 1) && (!$details_sales || $details_sales[0]->is_return == 1)){
 			redirect(site_url('retur_purchase'));

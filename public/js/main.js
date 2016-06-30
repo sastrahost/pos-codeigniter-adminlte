@@ -317,6 +317,7 @@ var $el = $("body");
         var retur_code = $("#retur_code").val();
         var retur_date = $("#retur_date").val();
         var is_return = $("#is_return").val();
+        var return_by = $("#return_by").val();
         if(typeof retur_id !== "undefined" && retur_code != ""){
             var status = true;
             var method = $("base").attr("class-attr");
@@ -324,7 +325,8 @@ var $el = $("body");
                 'retur_id': retur_id,
                 'retur_code': retur_code,
                 'retur_date' : retur_date,
-                'is_return' : is_return
+                'is_return' : is_return,
+                'return_by' : return_by
             };
             data = [status,method,arr];
         }

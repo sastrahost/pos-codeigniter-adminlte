@@ -69,6 +69,15 @@
                         </select>
                     </div>
                   </div>
+                    <div class="form-group">
+                      <label class="col-sm-4 control-label" for="date">Return By</label>
+                      <div class="col-sm-8">
+                        <select class="form-control" name="return_by" id="return_by">
+                          <option value="1" <?php echo (int)$details[0]->return_by == 1 ? "selected" : "";?>>Barang</option>
+                          <option value="0" <?php echo (int)$details[0]->return_by == 0 ? "selected" : "";?>>Uang</option>
+                        </select>
+                      </div>
+                    </div>
                   <?php } ?>
                 </div>
                 <div class="col-md-11 col-md-offset-1">

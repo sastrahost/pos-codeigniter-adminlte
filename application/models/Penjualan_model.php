@@ -13,6 +13,7 @@ class Penjualan_model extends CI_Model {
 	public function get_all($limit_offset = array()){
 		$this->db->select($this->select_default);
 		$this->db->join('customer', 'customer.id = sales_transaction.customer_id', 'left');
+		$this->db->order_by("date", "desc");
 		if(!empty($limit_offset)){
 			$query = $this->db->get($this->table,$limit_offset['limit'],$limit_offset['offset']);
 		}else{
@@ -21,11 +22,11 @@ class Penjualan_model extends CI_Model {
 		return $query->result();
 	}
 	public function count_total(){
-		$query = $this->db->get($this->table);
+		$query = $this->db->order_by("date", "desc")->get($this->table);
 		return $query->num_rows();
 	}
 	public function get_all_array(){
-		$query = $this->db->get($this->table);
+		$query = $this->db->order_by("date", "desc")->get($this->table);
 		return $query->result_array();
 	}
 	public function get_last_id(){
@@ -65,6 +66,7 @@ class Penjualan_model extends CI_Model {
 	public function get_filter($filter = '',$limit_offset = array(),$is_array = false){
 		$this->db->select($this->select_default);
 		$this->db->join('customer', 'customer.id = sales_transaction.customer_id', 'left');
+		$this->db->order_by("date", "desc");
 		if(!empty($filter)){
 			$this->db->where($filter);
 			if($limit_offset){
@@ -107,6 +109,7 @@ class Penjualan_model extends CI_Model {
 		$filter['is_cash'] = 0;
 		$this->db->select($this->select_default);
 		$this->db->join('customer', 'customer.id = sales_transaction.customer_id', 'left');
+		$this->db->order_by("date", "desc");
 		$this->db->where($filter);
 		if($limit_offset){
 			$this->db->limit($limit_offset['limit'],$limit_offset['offset']);

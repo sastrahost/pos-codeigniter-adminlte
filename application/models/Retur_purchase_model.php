@@ -14,6 +14,7 @@ class Retur_purchase_model extends CI_Model {
 	
 	public function get_all($limit_offset = array()){
 		$this->db->select($this->select_default);
+		$this->db->order_by("date", "desc");
 		if(!empty($limit_offset)){
 			$query = $this->db->get($this->table,$limit_offset['limit'],$limit_offset['offset']);
 		}else{
@@ -26,7 +27,7 @@ class Retur_purchase_model extends CI_Model {
 		return $query->num_rows();
 	}
 	public function get_all_array(){
-		$query = $this->db->get($this->table);
+		$query = $this->db->order_by("date", "desc")->get($this->table);
 		return $query->result_array();
 	}
 	public function get_last_id(){
@@ -89,6 +90,7 @@ class Retur_purchase_model extends CI_Model {
 	}
 	public function get_filter($filter = '',$limit_offset = array(),$is_array = false){
 		$this->db->select($this->select_default);
+		$this->db->order_by("date", "desc");
 		if(!empty($filter)){
 			$this->db->where($filter);
 			if($limit_offset){
