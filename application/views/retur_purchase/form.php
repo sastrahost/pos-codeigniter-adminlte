@@ -61,7 +61,7 @@
                   </div>
                   <?php if(!empty($edit) && $edit){?>
                   <div class="form-group">
-                    <label class="col-sm-4 control-label" for="date">Is Return</label>
+                    <label class="col-sm-4 control-label" for="date">Pengembalian Barang</label>
                     <div class="col-sm-8">
                         <select class="form-control" name="is_return" id="is_return">
                             <option value="1" <?php echo (int)$details[0]->is_return == 1 ? "selected" : "";?>>Yes</option>

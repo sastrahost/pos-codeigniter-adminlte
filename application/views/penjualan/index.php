@@ -28,7 +28,7 @@
                 <div class="box-body pad">
                   <div class="col-md-3">
                     <div class="form-group">
-                      <label for="id">Code Penjualan</label>
+                      <label for="id">Kode Penjualan</label>
                       <input type="text" class="form-control" name="id" value="<?php echo !empty($_GET['id']) ? $_GET['id'] : '';?>"/>
                     </div>
                   </div>

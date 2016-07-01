@@ -352,5 +352,6 @@ class Retur_penjualan extends MY_Controller {
 	}
 	public function export_csv(){
 		$data = $this->penjualan->get_filter('',url_param(),true);
+		$this->csv_library->export('retur_penjualan.csv',$data);
 	}
 }

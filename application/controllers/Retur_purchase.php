@@ -348,5 +348,6 @@ class Retur_purchase extends MY_Controller {
 	}
 	public function export_csv(){
 		$data = $this->retur_purchase->get_filter('',url_param(),true);
+		$this->csv_library->export('retur_purchase.csv',$data);
 	}
 }
