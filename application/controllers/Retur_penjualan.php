@@ -337,6 +337,7 @@ class Retur_penjualan extends MY_Controller {
 	}
 	public function delete($retur_id){
 		$details = $this->penjualan->get_detail_by_id($retur_id);
+		$this->penjualan->delete($retur_id);
 
 		if(!$details){
 			redirect(site_url());
