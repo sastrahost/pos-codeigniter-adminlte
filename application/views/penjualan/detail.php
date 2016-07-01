@@ -35,6 +35,7 @@
                                     <th>Total Item</th>
                                     <th>Total</th>
                                     <th>Metode</th>
+                                    <th>Tgl Jatuh Tempo</th>
                                     <th>Date</th>
                                 </tr>
                                 </thead>
@@ -45,6 +46,7 @@
                                         <td><?php echo $details[0]->total_item;?></td>
                                         <td>Rp<?php echo number_format($details[0]->total_price);?></td>
                                         <td><?php echo $details[0]->is_cash == 1 ? "Cash" : "Credit";?></td>
+                                        <td><span class="alert-warning"><?php echo $details[0]->is_cash == 1 ? "" : $details[0]->pay_deadline_date;?></span></td>
                                         <td><?php echo $details[0]->date;?></td>
                                     </tr>
                                 </tbody>

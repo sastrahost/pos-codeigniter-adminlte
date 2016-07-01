@@ -69,6 +69,7 @@
                   <th>Customer Name</th>
                   <th>Total Item</th>
                   <th>Total Harga</th>
+                  <th>Metode Pembayaran</th>
                   <th>Date</th>
                   <th>Action</th>
                 </tr>
@@ -81,6 +82,7 @@
                       <td><?php echo $penjualan->customer_name;?></td>
                       <td><?php echo $penjualan->total_item;?></td>
                       <td>Rp<?php echo number_format($penjualan->total_price);?></td>
+                      <td><?php echo $penjualan->is_cash == 1 ? "<span class='alert-success'>Cash</span>" : "<span class='alert-warning'>Credit</span>";?></td>
                       <td><?php echo $penjualan->date;?></td>
                       <td>
                         <a href="<?php echo site_url('penjualan/detail').'/'.$penjualan->id;?>" class="btn btn-xs btn-default">Detail</a>

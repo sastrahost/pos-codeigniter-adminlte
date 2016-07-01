@@ -131,7 +131,7 @@
 						</tbody>
 					  </table>
 					  <div class="clearfix">
-						<a href="#" class="btn btn-primary">Tampilkan Semua</a>
+						<a href="<?php echo site_url('tunggakan');?>" class="btn btn-primary">Tampilkan Semua</a>
 					  </div>
                   </div>
                   <!-- /.chart-responsive -->
