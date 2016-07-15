@@ -94,10 +94,7 @@ class Produk extends MY_Controller {
         redirect(site_url('produk'));
     }
     public function delete($id){
-        $check_id = $this->produk_model->get_by_id($id);
-        if($check_id){
-            $this->produk_model->delete($id);
-        }
+        $this->produk_model->delete($id);
         redirect(site_url('produk'));
     }
     public function export_csv(){
