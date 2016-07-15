@@ -7,13 +7,15 @@
             width: 24cm; /* was 907px */
             height: 14cm; /* was 529px */
             display: block;
-            font-family: "Calibri";
+            font-family: "Consolas";
+            font-size:12px !important;
             padding:10px;
             /*font-size: auto; NOT A VALID PROPERTY */
         }
         table{
             width:100%;
             display:inline;
+            font-size:12px !important;
         }
         .box-body{
             width:100%;
@@ -23,13 +25,15 @@
                 width: 24cm; /* was 8.5in */
                 height: 14cm; /* was 5.5in */
                 display: block;
-                font-family: "Calibri";
+                font-family: "Consolas";
+                font-size:12px !important;
                 padding:10px;
                 /*font-size: auto; NOT A VALID PROPERTY */
             }
             table{
                 width:100%;
                 display:inline;
+                font-size:12px !important;
             }
 
             @page {
@@ -71,7 +75,7 @@
         </table>
         <br />
         <br />
-        <?php $line = "==================================================================================================================";?>
+        <?php $line = " =========================================================================================================================================";?>
         <?php echo $line;?>
         <table>
             <thead>
