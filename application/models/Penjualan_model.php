@@ -54,7 +54,8 @@ class Penjualan_model extends CI_Model {
 		$this->db->delete($this->table, array('id' => $id));
 	}
 	public function get_detail($id){
-		$sql = "SELECT *, sales_transaction.id AS id, product.id as product_id FROM sales_transaction 
+		$sql = "SELECT *, sales_transaction.id AS id, product.id as product_id, sales_transaction.date as date 
+				FROM sales_transaction 
 				JOIN sales_data ON sales_transaction.id = sales_data.sales_id 
 				JOIN product ON product.id = sales_data.product_id 
 				JOIN customer ON customer.id = sales_transaction.customer_id 
