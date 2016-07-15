@@ -8,14 +8,12 @@
             height: 14cm; /* was 529px */
             display: block;
             font-family: "Consolas";
-            font-size:12px !important;
             padding:10px;
             /*font-size: auto; NOT A VALID PROPERTY */
         }
         table{
             width:100%;
             display:inline;
-            font-size:12px !important;
         }
         .box-body{
             width:100%;
@@ -26,14 +24,12 @@
                 height: 14cm; /* was 5.5in */
                 display: block;
                 font-family: "Consolas";
-                font-size:12px !important;
                 padding:10px;
                 /*font-size: auto; NOT A VALID PROPERTY */
             }
             table{
                 width:100%;
                 display:inline;
-                font-size:12px !important;
             }
 
             @page {
@@ -75,7 +71,7 @@
         </table>
         <br />
         <br />
-        <?php $line = " =========================================================================================================================================";?>
+        <?php $line = "==================================================================================================================";?>
         <?php echo $line;?>
         <table>
             <thead>
@@ -93,7 +89,7 @@
             <thead  style="height:270px;">
             <?php if(isset($details) && is_array($details)){ ?>
                 <?php foreach($details as $key => $transaksi){?>
-                    <tr valign="top" style="height:10px;">
+                    <tr valign="top" style="height:10px;font-size:18px;">
                         <td style="width:181px;"><?php echo $transaksi->product_name;?></td>
                         <td style="width:178px;"><?php echo $transaksi->category_name;?></td>
                         <td style="width:178px;"><?php echo $transaksi->quantity;?></td>
