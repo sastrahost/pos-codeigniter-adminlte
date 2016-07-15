@@ -5,7 +5,7 @@
 
         html, body {
             width: 23cm; /* was 907px */
-            height: 14cm; /* was 529px */
+            height: 13.5cm; /* was 529px */
             display: block;
             font-family: "Consolas";
             margin:0;
@@ -23,10 +23,10 @@
         @media print {
             html, body {
                 width: 23cm; /* was 8.5in */
-                height: 14cm; /* was 5.5in */
+                height: 13.5cm; /* was 5.5in */
                 display: block;
                 font-family: "Consolas";
-                padding:10px;
+                padding:0 10px;
                 margin:0;
                 /*font-size: auto; NOT A VALID PROPERTY */
             }
