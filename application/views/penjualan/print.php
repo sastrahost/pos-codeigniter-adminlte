@@ -4,39 +4,44 @@
     <style>
 
         html, body {
-            width: 24cm; /* was 907px */
+            width: 23cm; /* was 907px */
             height: 14cm; /* was 529px */
             display: block;
             font-family: "Consolas";
-            padding:10px;
+            margin:0;
             /*font-size: auto; NOT A VALID PROPERTY */
         }
         table{
             width:100%;
             display:inline;
+            font-size:13px;
         }
         .box-body{
-            width:100%;
+            padding:10px;
+            font-size:13px;
         }
         @media print {
             html, body {
-                width: 24cm; /* was 8.5in */
+                width: 23cm; /* was 8.5in */
                 height: 14cm; /* was 5.5in */
                 display: block;
                 font-family: "Consolas";
                 padding:10px;
+                margin:0;
                 /*font-size: auto; NOT A VALID PROPERTY */
             }
             table{
                 width:100%;
                 display:inline;
+                font-size:13px;
+            }
+            .box-body{
+                padding:10px;
+                font-size:13px;
             }
 
             @page {
                 size: 24cm 14cm /* . Random dot? */;
-            }
-            .box-body{
-                width:100%;
             }
         }
     </style>
@@ -70,8 +75,7 @@
             </tbody>
         </table>
         <br />
-        <br />
-        <?php $line = "========================================================================================================";?>
+        <?php $line = "=======================================================================================================================";?>
         <?php echo $line;?>
         <table>
             <thead>
@@ -89,7 +93,7 @@
             <thead  style="height:270px;">
             <?php if(isset($details) && is_array($details)){ ?>
                 <?php foreach($details as $key => $transaksi){?>
-                    <tr valign="top" style="height:10px;font-size:18px;">
+                    <tr valign="top" style="height:10px;font-size:14px;">
                         <td style="width:181px;"><?php echo $transaksi->product_name;?></td>
                         <td style="width:178px;"><?php echo $transaksi->category_name;?></td>
                         <td style="width:178px;"><?php echo $transaksi->quantity;?></td>
@@ -99,7 +103,7 @@
                 <?php } ?>
                 <?php $total = 10 - ($key + 1);
                 for($a =1; $a <= $total; $a++){ ?>
-                    <tr>
+                    <tr style="height:10px;font-size:14px;">
                         <td style="width:181px;">&nbsp;</td>
                         <td style="width:178px;"></td>
                         <td style="width:178px;"></td>
