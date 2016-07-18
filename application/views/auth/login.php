@@ -6,7 +6,7 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in to start your session</p>
+    <p class="login-box-msg">Sign in untuk memulai aplikasi</p>
 	
 	<?php if($this->session->flashdata('login_false')){?>
 		<div class="alert alert-danger alert-dismissible">
@@ -31,7 +31,7 @@
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox" name="remember_me"> Remember Me
+            <!--  <input type="checkbox" name="remember_me"> Remember Me -->
             </label>
           </div>
         </div>
@@ -43,8 +43,8 @@
       </div>
     </form>
 
-    <a href="#">I forgot my password</a><br>
-    <a href="register.html" class="text-center">Register a new membership</a>
+   <!-- <a href="#">I forgot my password</a><br>
+    <a href="register.html" class="text-center">Register a new membership</a>-->
 
   </div>
   <!-- /.login-box-body -->
