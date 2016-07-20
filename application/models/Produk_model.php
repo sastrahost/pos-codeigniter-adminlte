@@ -18,8 +18,12 @@ class Produk_model extends CI_Model {
 		$query = $this->db->get("product");
 		return $query->num_rows();
 	}
-	public function get_all_array(){
-		$query = $this->db->order_by("date", "desc")->get("product");
+	public function get_all_array($filter){
+		if($filter){
+			$query = $this->db->order_by("date", "desc")->get_where("product",$filter);
+		}else{
+			$query = $this->db->order_by("date", "desc")->get("product");
+		}
 		return $query->result_array();
 	}
 	public function get_last_id(){

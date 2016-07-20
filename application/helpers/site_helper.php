@@ -133,3 +133,7 @@ function search_form($module){
 
 	return $s;
 }
+
+function get_uri(){
+	return "?".$_SERVER['QUERY_STRING'];
+}

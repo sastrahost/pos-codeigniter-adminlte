@@ -88,7 +88,14 @@ class Supplier extends MY_Controller {
 		redirect(site_url('supplier'));
 	}
 	public function export_csv(){
-		$data = $this->supplier_model->get_all_array();
+		$filter = false;
+		if(isset($_GET['search'])) {
+			$filter = array();
+			if (!empty($_GET['value']) && $_GET['value'] != '') {
+				$filter[$_GET['search_by'] . ' LIKE'] = "%" . $_GET['value'] . "%";
+			}
+		}
+		$data = $this->supplier_model->get_all_array($filter);
 		$this->csv_library->export('supplier.csv',$data);
 	}
 }

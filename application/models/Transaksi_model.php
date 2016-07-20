@@ -53,7 +53,7 @@ class Transaksi_model extends CI_Model {
 	public function delete($id){
 		$this->db->delete($this->table, array('id' => $id));
 	}
-	public function get_detail($id){
+	public function get_detail($id,$array = false){
 		$this->db->select('*,purchase_transaction.id AS id, product.id as product_id ');
 		$this->db->from('purchase_data');
 		$this->db->join('purchase_transaction', 'purchase_data.transaction_id = purchase_transaction.id','right');
@@ -62,7 +62,11 @@ class Transaksi_model extends CI_Model {
 		$this->db->join('category', 'category.id = purchase_data.category_id', 'left');
 		$this->db->where('purchase_data.transaction_id',$id);
 		$query = $this->db->get();
-		return $query->result();
+		if($array){
+			return $query->result_array();
+		}else{
+			return $query->result();
+		}
 	}
 	public function get_filter($filter = '',$limit_offset = array(),$is_array = false){
 		$this->db->select($this->select_default);

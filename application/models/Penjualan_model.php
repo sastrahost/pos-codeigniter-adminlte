@@ -25,8 +25,12 @@ class Penjualan_model extends CI_Model {
 		$query = $this->db->order_by("date", "desc")->get($this->table);
 		return $query->num_rows();
 	}
-	public function get_all_array(){
-		$query = $this->db->order_by("date", "desc")->get($this->table);
+	public function get_all_array($filter = false){
+		if($filter){
+			$query = $this->db->order_by("date", "desc")->get_where($this->table,$filter);
+		}else{
+			$query = $this->db->order_by("date", "desc")->get($this->table);
+		}
 		return $query->result_array();
 	}
 	public function get_last_id(){
