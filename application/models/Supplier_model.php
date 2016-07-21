@@ -18,8 +18,12 @@ class Supplier_model extends CI_Model {
 		$query = $this->db->get("supplier");
 		return $query->num_rows();
 	}
-	public function get_all_array(){
-		$query = $this->db->get("supplier");
+	public function get_all_array($filter = ''){
+		if(!empty($filter)) {
+			$query = $this->db->get_where("supplier",$filter);
+		}else{
+			$query = $this->db->get_where("supplier");
+		}
 		return $query->result_array();
 	}
 	public function get_last_id(){

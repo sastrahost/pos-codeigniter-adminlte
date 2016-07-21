@@ -36,7 +36,7 @@
                                     <div class="col-md-3">
                                         <div class="form-group">
                                             <label for="submit">&nbsp</label>
-                                            <a href="<?php echo site_url('produk/export_csv');?>" class="form-control btn btn-default"><i class="fa fa-file-excel-o"></i> Export Excel</a>
+                                            <a href="<?php echo site_url('produk/export_csv').get_uri();?>" class="form-control btn btn-default"><i class="fa fa-file-excel-o"></i> Export Excel</a>
                                         </div>
                                     </div>
                                 </div>

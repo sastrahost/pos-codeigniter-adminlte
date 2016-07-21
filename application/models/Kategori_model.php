@@ -18,8 +18,12 @@ class Kategori_model extends CI_Model {
 		$query = $this->db->get("category");
 		return $query->num_rows();
 	}
-	public function get_all_array(){
-		$query = $this->db->get("category");
+	public function get_all_array($filter = false){
+		if($filter){
+			$query = $this->db->get_where("category",$filter);
+		}else{
+			$query = $this->db->get("category");
+		}
 		return $query->result_array();
 	}
 	public function get_last_id(){

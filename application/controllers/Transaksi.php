@@ -198,7 +198,26 @@ class Transaksi extends MY_Controller {
 		redirect(site_url('transaksi'));
 	}
 	public function export_csv(){
-		$data = $this->transaksi_model->get_filter('',url_param(),true);
-		$this->csv_library->export('transaksi.csv',$data);
+		$filter = '';
+		if(isset($_GET['search'])) {
+			if (!empty($_GET['id']) && $_GET['id'] != '') {
+				$filter['purchase_transaction.id LIKE'] = "%" . $_GET['id'] . "%";
+			}
+
+			if (!empty($_GET['date_from']) && $_GET['date_from'] != '') {
+				$filter['DATE(purchase_transaction.date) >='] = $_GET['date_from'];
+			}
+
+			if (!empty($_GET['date_end']) && $_GET['date_end'] != '') {
+				$filter['DATE(purchase_transaction.date) <='] = $_GET['date_end'];
+			}
+		}
+		$datas = $this->transaksi_model->get_filter($filter,url_param(),true);
+		foreach($datas as $k => $data){
+			$details = $this->transaksi_model->get_detail($data['id'],true);
+			$datas[$k]['details'] = $details;
+		}
+		print_r($datas);
+		//$this->csv_library->export('transaksi.csv',$datas);
 	}
 }

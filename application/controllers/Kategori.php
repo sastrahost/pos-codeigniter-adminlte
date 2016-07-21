@@ -93,7 +93,13 @@ class Kategori extends MY_Controller {
         redirect(site_url('pelanggan'));
     }
     public function export_csv(){
-        $data = $this->kategori_model->get_all_array();
+        $filter = false;
+        if(isset($_GET['search'])) {
+            if (!empty($_GET['value']) && $_GET['value'] != '') {
+                $filter[$_GET['search_by'] . ' LIKE'] = "%" . $_GET['value'] . "%";
+            }
+        }
+        $data = $this->kategori_model->get_all_array($filter);
         $this->csv_library->export('pelanggan.csv',$data);
     }
 }

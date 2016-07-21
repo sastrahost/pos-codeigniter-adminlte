@@ -18,8 +18,12 @@ class Pelanggan_model extends CI_Model {
 		$query = $this->db->get("customer");
 		return $query->num_rows();
 	}
-	public function get_all_array(){
-		$query = $this->db->get("customer");
+	public function get_all_array($filter = false){
+		if(!empty($filter)) {
+			$query = $this->db->get_where("customer", $filter);
+		}else{
+			$query = $this->db->get("customer");
+		}
 		return $query->result_array();
 	}
 	public function get_last_id(){

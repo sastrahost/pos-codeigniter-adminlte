@@ -55,6 +55,20 @@ class Tunggakan extends MY_Controller
         redirect(site_url('tunggakan'));
     }
     public function export_csv(){
+        $filter = false;
+        if(!empty($_GET['id']) && $_GET['id'] != ''){
+            $filter['sales_transaction.id LIKE'] = "%".$_GET['id']."%";
+        }
+
+        if(!empty($_GET['date_range']) && $_GET['date_range'] != ''){
+            $date = date('Y-m-d', strtotime("+".$_GET['date_range']." days"));
+            $filter['DATE(sales_transaction.pay_deadline_date) <='] = $date;
+        }
+
+        if(!empty($_GET['date_trx']) && $_GET['date_trx'] != ''){
+            $filter['DATE(sales_transaction.date)'] = $_GET['date_trx'];
+        }
+        
         $data = $this->penjualan_model->get_filter_tunggakan('',url_param(),true);
         $this->csv_library->export('tunggakan.csv',$data);
     }
