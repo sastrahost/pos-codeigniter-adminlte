@@ -246,17 +246,63 @@ class Penjualan extends MY_Controller {
 		redirect(site_url('penjualan'));
 	}
 	public function export_csv(){
-		$data = $this->penjualan_model->get_filter('',url_param(),true);
-		$this->csv_library->export('sales.csv',$data);
+		$filter = '';
+		if(isset($_GET['search'])) {
+			if (!empty($_GET['id']) && $_GET['id'] != '') {
+				$filter['purchase_transaction.id LIKE'] = "%" . $_GET['id'] . "%";
+			}
+
+			if (!empty($_GET['date_from']) && $_GET['date_from'] != '') {
+				$filter['DATE(purchase_transaction.date) >='] = $_GET['date_from'];
+			}
+
+			if (!empty($_GET['date_end']) && $_GET['date_end'] != '') {
+				$filter['DATE(purchase_transaction.date) <='] = $_GET['date_end'];
+			}
+		}
+		$result = $this->penjualan_model->get_filter_csv($filter);
+		if($result){
+			$result = $this->_set_csv_format($result);
+		}
+		//echo json_encode($result);
+		$this->csv_library->export('sales.csv',$result);
 	}
 	public function print_now($id = ""){
 		$details = $this->penjualan_model->get_detail($id);
 		if($details){
 			$data['details'] = $details;
 			$this->load->view("penjualan/print",$data);
-			//$this->load->view('penjualan/detail',$data);
 		}else{
 			redirect(site_url('penjualan'));
 		}
+	}
+	
+	private function _set_csv_format($datas){
+		$result = false;
+		if(is_array($datas)){
+			$data_before = "";
+			foreach($datas as $k => $data){
+				$datas[$k]['is_cash'] = ($data['is_cash'] == 1) ? "Cash" : "Bayar Nanti";
+				$datas[$k]['pay_deadline_date'] = ($data['is_cash'] == 1) ? "" : $data["pay_deadline_date"];
+				$datas[$k]['date'] = date("Y-m-d H:i:s",strtotime($data['date']));
+				if($data['id'] == $data_before) {
+					$datas[$k]['id'] = "";
+					$datas[$k]['customer_id'] = "";
+					$datas[$k]['customer_name'] = "";
+					$datas[$k]['customer_phone'] = "";
+					$datas[$k]['customer_address'] = "";
+					$datas[$k]['category_name'] = "";
+					$datas[$k]['total_price'] = "";
+					$datas[$k]['total_item'] = "";
+					$datas[$k]['is_cash'] = "";
+					$datas[$k]['pay_deadline_date'] = "";
+
+					$datas[$k]['date'] = "";
+				}
+				$data_before = $data['id'];
+			}
+			$result = $datas;
+		}
+		return $result;
 	}
 }

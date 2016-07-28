@@ -88,15 +88,15 @@ class Transaksi_model extends CI_Model {
 		}
 	}
 	public function get_filter_csv($filter = ''){
-		$this->db->select('purchase_transaction.id AS id, supplier_name, total_price, total_item,purchase_transaction.date AS date,type,
+		$this->db->select('sales_transaction.id AS id, supplier_name, sales_transaction.total_price, sales_transaction.total_item,purchase_transaction.date AS date,type,
 					supplier_id,supplier_address,supplier_phone,transaction_id,category.category_name,product.id as product_id,quantity,price_item,subtotal,product_name,product_desc');
 		$this->db->join('supplier', 'supplier.id = purchase_transaction.supplier_id');
+		$this->db->join('sales_transaction', 'purchase_data.transaction_id = purchase_transaction.id');
 
 		$this->db->join('purchase_data', 'purchase_data.transaction_id = purchase_transaction.id');
 		$this->db->join('product', 'product.id = purchase_data.product_id');
 		$this->db->join('category', 'category.id = purchase_data.category_id');
 
-		//$this->db->group_by("product_name");
 		$this->db->order_by("purchase_transaction.date", "desc");
 		if(!empty($filter)){
 			$this->db->where($filter);

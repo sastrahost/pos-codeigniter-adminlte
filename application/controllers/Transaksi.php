@@ -217,7 +217,7 @@ class Transaksi extends MY_Controller {
 			$result = $this->_set_csv_format($result);
 		}
 		//echo json_encode($result);
-		$this->csv_library->export('transaksi_penjualan.csv',$result);
+		$this->csv_library->export('transaksi.csv',$result);
 	}
 
 	private function _set_csv_format($datas){

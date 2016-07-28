@@ -68,6 +68,29 @@ class Penjualan_model extends CI_Model {
 		$query = $this->db->query($sql);
 		return $query->result();
 	}
+
+	public function get_filter_csv($filter = ''){
+		$this->db->select('sales_transaction.id AS id, sales_transaction.total_price, sales_transaction.total_item,sales_transaction.date AS date,
+					sales_transaction.is_cash, sales_transaction.pay_deadline_date,
+					customer.id as customer_id,customer.customer_name,customer.customer_phone,customer.customer_address,
+					category.category_name,
+					product.id as product_id,product.product_name,product.product_desc,
+					sales_data.quantity,sales_data.price_item,sales_data.subtotal');
+
+		$this->db->join('sales_data', 'sales_transaction.id = sales_data.sales_id');
+		$this->db->join('customer', 'customer.id = sales_transaction.customer_id');
+		$this->db->join('category', 'category.id = sales_data.category_id');
+		$this->db->join('product', 'product.id = sales_data.product_id');
+		
+		$this->db->order_by("sales_transaction.date", "desc");
+		
+		$filter['type'] = '1';
+		$this->db->where($filter);
+		
+		$query = $this->db->get($this->table);
+		return $query->result_array();
+	}
+
 	public function get_filter($filter = '',$limit_offset = array(),$is_array = false){
 		$this->db->select($this->select_default);
 		$this->db->join('customer', 'customer.id = sales_transaction.customer_id', 'left');
@@ -87,6 +110,7 @@ class Penjualan_model extends CI_Model {
 			return $query->result();
 		}
 	}
+
 	public function count_total_filter($filter = array()){
 		if(!empty($filter)){
 			$query = $this->db->get_where($this->table,$filter);
