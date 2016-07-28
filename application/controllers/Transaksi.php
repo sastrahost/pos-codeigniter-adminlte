@@ -225,13 +225,11 @@ class Transaksi extends MY_Controller {
 		if(is_array($datas)){
 			$data_before = "";
 			foreach($datas as $k => $data){
-				$datas[$k]['type'] = ($data['type'] == 1) ? "Cash" : "Bayar Nanti";
 				$datas[$k]['date'] = date("Y-m-d H:i:s",strtotime($data['date']));
 				if($data['id'] == $data_before) {
 					$datas[$k]['id'] = "";
 					$datas[$k]['total_price'] = "";
 					$datas[$k]['total_item'] = "";
-					$datas[$k]['type'] = "";
 
 					$datas[$k]['date'] = "";
 					$datas[$k]['supplier_id'] = "";
