@@ -212,12 +212,39 @@ class Transaksi extends MY_Controller {
 				$filter['DATE(purchase_transaction.date) <='] = $_GET['date_end'];
 			}
 		}
-		$datas = $this->transaksi_model->get_filter($filter,url_param(),true);
-		foreach($datas as $k => $data){
-			$details = $this->transaksi_model->get_detail($data['id'],true);
-			$datas[$k]['details'] = $details;
+		$result = $this->transaksi_model->get_filter_csv($filter);
+		if($result){
+			$result = $this->_set_csv_format($result);
 		}
-		print_r($datas);
-		//$this->csv_library->export('transaksi.csv',$datas);
+		//echo json_encode($result);
+		$this->csv_library->export('transaksi_penjualan.csv',$result);
+	}
+
+	private function _set_csv_format($datas){
+		$result = false;
+		if(is_array($datas)){
+			$data_before = "";
+			foreach($datas as $k => $data){
+				$datas[$k]['type'] = ($data['type'] == 1) ? "Cash" : "Bayar Nanti";
+				$datas[$k]['date'] = date("Y-m-d H:i:s",strtotime($data['date']));
+				if($data['id'] == $data_before) {
+					$datas[$k]['id'] = "";
+					$datas[$k]['total_price'] = "";
+					$datas[$k]['total_item'] = "";
+					$datas[$k]['type'] = "";
+
+					$datas[$k]['date'] = "";
+					$datas[$k]['supplier_id'] = "";
+					$datas[$k]['supplier_name'] = "";
+					$datas[$k]['supplier_phone'] = "";
+					$datas[$k]['supplier_address'] = "";
+					$datas[$k]['transaction_id'] = "";
+					$datas[$k]['category_name'] = "";
+				}
+				$data_before = $data['id'];
+			}
+			$result = $datas;
+		}
+		return $result;
 	}
 }
