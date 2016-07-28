@@ -185,28 +185,7 @@ class Penjualan extends MY_Controller {
 			echo json_encode(array('status' => 'error'));
 		}
 	}
-	/*public function update($transaction_id){
-		$this->form_validation->set_rules('supplier_id', 'supplier_id', 'required');
-
-		$carts =  $this->cart->contents();
-		if($this->form_validation->run() != FALSE && !empty($carts) && is_array($carts)){
-			$data['id'] = $transaction_id;
-			$data['supplier_id'] = escape($this->input->post('supplier_id'));
-			$data['total_price'] = $this->cart->total();
-			$data['total_item'] = $this->cart->total_items();
-
-
-			$this->penjualan_model->update($transaction_id,$data);
-			if($data['id']){
-				$transaksi = $this->penjualan_model->get_detail($transaction_id);
-				$this->penjualan_model->delete_purchase_data_trx($transaction_id);
-				$this->_insert_purchase_data($transaction_id,$carts);
-			}
-			echo json_encode(array('status' => 'ok'));
-		}else{
-			echo json_encode(array('status' => 'error'));
-		}
-	}*/
+	
 	private function _check_qty($carts){
 		$status = false;
 		foreach($carts as $key => $cart){
@@ -249,15 +228,15 @@ class Penjualan extends MY_Controller {
 		$filter = '';
 		if(isset($_GET['search'])) {
 			if (!empty($_GET['id']) && $_GET['id'] != '') {
-				$filter['purchase_transaction.id LIKE'] = "%" . $_GET['id'] . "%";
+				$filter['sales_transaction.id LIKE'] = "%" . $_GET['id'] . "%";
 			}
 
 			if (!empty($_GET['date_from']) && $_GET['date_from'] != '') {
-				$filter['DATE(purchase_transaction.date) >='] = $_GET['date_from'];
+				$filter['DATE(sales_transaction.date) >='] = $_GET['date_from'];
 			}
 
 			if (!empty($_GET['date_end']) && $_GET['date_end'] != '') {
-				$filter['DATE(purchase_transaction.date) <='] = $_GET['date_end'];
+				$filter['DATE(sales_transaction.date) <='] = $_GET['date_end'];
 			}
 		}
 		$result = $this->penjualan_model->get_filter_csv($filter);

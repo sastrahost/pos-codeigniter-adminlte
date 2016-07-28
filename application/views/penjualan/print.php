@@ -60,7 +60,7 @@
                 <tr>
                     <td><?php echo $details[0]->customer_name;?></td>
                     <td>Tgl Pembelian</td>
-                    <td>: <?php echo $details[0]->date;?></td>
+                    <td>: <?php echo date("d-m-Y H:i:s",strtotime($details[0]->date));?></td>
                 </tr>
                 <tr>
                     <td><?php echo $details[0]->customer_address;?> </td>
