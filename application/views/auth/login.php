@@ -2,11 +2,11 @@
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Admin</b>Login</a>
+    <a href="../../index2.html"><b>Admin</b>POS</a>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Sign in untuk memulai aplikasi</p>
+    <p class="login-box-msg">Sign in untuk memulai aplikasi Point of Sale</p>
 	
 	<?php if($this->session->flashdata('login_false')){?>
 		<div class="alert alert-danger alert-dismissible">

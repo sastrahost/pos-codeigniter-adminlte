@@ -44,9 +44,9 @@
                             <table id="example1" class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
-                                    <th>Code ID</th>
-                                    <th>Produk Name</th>
-                                    <th>Description</th>
+                                    <th>Kode</th>
+                                    <th>Nama Produk</th>
+                                    <th>Deskripsi</th>
                                     <th>QTY</th>
                                     <th>Price</th>
                                     <th>Price 1</th>
@@ -77,15 +77,15 @@
                                 </tbody>
                                 <tfoot>
                                 <tr>
-                                    <th>Code ID</th>
-                                    <th>Produk Name</th>
-                                    <th>Description</th>
+                                  <!--  <th>Kode</th>
+                                    <th>Nama Produk</th>
+                                    <th>Deskripsi</th>
                                     <th>QTY</th>
                                     <th>Price</th>
                                     <th>Price 1</th>
                                     <th>Price 2</th>
                                     <th>Price 3</th>
-                                    <th>Action</th>
+                                    <th>Action</th> -->
                                 </tr>
                                 </tfoot>
                             </table>

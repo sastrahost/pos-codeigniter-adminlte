@@ -19,19 +19,19 @@
 
       <!-- search form (Optional) -->
       <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
+       <!-- <div class="input-group">
           <input type="text" name="q" class="form-control" placeholder="Search...">
               <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
                 </button>
               </span>
-        </div>
+        </div> -->
       </form>
       <!-- /.search form -->
 
       <!-- Sidebar Menu -->
       <ul class="sidebar-menu">
-        <li class="header">HEADER</li>
+        <!--<li class="header">HEADER</li>-->
         <!-- Optionally, you can add icons to the links -->
         <li class="<?php echo is_menu('home','dashboard');?>"><a href="<?php echo site_url();?>"><i class="fa fa-dashboard" aria-hidden="true"></i> <span>Dashboard</span></a></li>
         <li class="treeview <?php echo is_menu('supplier');?>">

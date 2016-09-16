@@ -10,7 +10,11 @@ class Produk_model extends CI_Model {
 		if(!empty($limit_offset)){
 			$query = $this->db->order_by("date", "desc")->get("product",$limit_offset['limit'],$limit_offset['offset']);
 		}else{
-			$query = $this->db->order_by("date", "desc")->get("product");
+
+         //$this->db->join ('category', 'category.category_id = product.category_id');
+         //$query = $this->db->get('product');
+
+          $query = $this->db->order_by("date", "desc")->get("product");
 		}
 		return $query->result();
 	}
