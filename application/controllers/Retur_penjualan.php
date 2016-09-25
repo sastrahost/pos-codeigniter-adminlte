@@ -331,7 +331,7 @@ class Retur_penjualan extends MY_Controller {
 			);
 			$this->penjualan_model->insert_purchase_data($purchase_data);
 
-			$this->produk_model->update_qty_min($cart['id'],array('product_qty' => $cart['qty']));
+			//$this->produk_model->update_qty_min($cart['id'],array('product_qty' => $cart['qty']));
 		}
 		$this->cart->destroy();
 	}

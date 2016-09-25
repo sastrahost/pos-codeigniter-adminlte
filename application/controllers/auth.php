@@ -20,7 +20,7 @@ class Auth extends MY_Controller {
 		
 		// Check Remember Me
 		if(isset($_COOKIE['remember_me'])){			
-			$this->auth_model->set_session($username);
+			$this->auth_model->set_session($_COOKIE['remember_me']);
 			redirect(site_url());
 		}
 		$this->load->view('auth/login');
@@ -33,7 +33,7 @@ class Auth extends MY_Controller {
 		}
 		// Check Remember Me
 		if(isset($_COOKIE['remember_me'])){			
-			$this->auth_model->set_session($username);
+			$this->auth_model->set_session($_COOKIE['remember_me']);
 			redirect(site_url());
 		}
 		$username = escape($this->input->post("username"));		

@@ -243,10 +243,9 @@ class Retur_purchase extends MY_Controller {
 		$this->load->view('retur_purchase/form',$data);
 	}
 
-	public function update($retur_id){
+	public function update($retur_id = 0){
 		$details = $this->retur_purchase->get_detail_by_id($retur_id);
 		$details_sales = $this->retur_purchase->get_detail_by_sales_id($retur_id);
-
 		if((!$details || $details[0]->is_return == 1) && (!$details_sales || $details_sales[0]->is_return == 1)){
 			redirect(site_url('retur_purchase'));
 		}
@@ -275,13 +274,13 @@ class Retur_purchase extends MY_Controller {
 			$data['return_by'] = ($return_by != "undefined") ? (int)$return_by : "0";
 
 			$is_return_old = $details[0]->is_return;
-			$this->retur_purchase->update($retur_id,$data);
-			if($is_return == "1" && $is_return_old != 1 && strpos($details[0]->sales_retur_id, "RETS") !== false && $return_by == 1){
+			if($is_return == 1 && $is_return_old != 1 && strpos($details[0]->sales_retur_id, "RETS") !== false && $return_by == 1){
 				// Update product and retur purchase
 				foreach($carts as $cart){
 					$this->produk_model->update_qty_add($cart['id'],array('product_qty' => $cart['qty']));
 				}
 			}
+			$this->retur_purchase->update($retur_id,$data);
 			
 			if($data['id']){
 
