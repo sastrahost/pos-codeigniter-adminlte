@@ -37,8 +37,7 @@ class Auth extends MY_Controller {
 			redirect(site_url());
 		}
 		$username = escape($this->input->post("username"));		
-		/* $password = md5(escape($this->input->post("password"))); */
-		$password = escape($this->input->post("password"));
+		$password = md5(escape($this->input->post("password")));
 		$remember_me = escape($this->input->post("remember_me"));	
 		if($username && $password){
 			$check_login = $this->auth_model->check_login($username,$password);	
